@@ -26,7 +26,7 @@ db.once('open', function() {
         imageUrl: {type: [String], default: []},
         steps: {type: [String], default: []},
         notes: String,
-        ratings: {type: {String: Number}, default: {}},
+        ratings: {type: {String: String}, default: {}},
         comments:{type: [{
             commenter: String,
             contents: String,

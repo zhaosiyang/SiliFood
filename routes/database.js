@@ -8,8 +8,8 @@ var collections = require('../dbConfig');
 var bcrypt = require('bcrypt');
 
 router.get('/userById', function(req, res, next) {
-    var userId = req.query.userId;
-    collections.User.findOne({userId: userId}, function(err, data){
+    var username = req.query.username;
+    collections.User.findOne({username: username}, function(err, data){
         if (err) {
             res.status(500).send(err);
         }
@@ -42,9 +42,9 @@ router.get('/allUsers', function(req, res, next) {
     });
 });
 
-router.get('/allRecipesByUserId', function(req, res, next) {
-    var userId = req.query.userId;
-    collections.User.findOne({userId: userId}, function(err, user){
+router.get('/allRecipesByUsername', function(req, res, next) {
+    var username = req.query.username;
+    collections.User.findOne({username: username}, function(err, user){
         if (err) {
             res.status(500).send(err);
         }
@@ -109,10 +109,10 @@ router.post('/newRating', function(req, res, next){
 });
 router.post('/follow', function(req, res, next){
     var params = req.body;
-    var userId = params.userId;
+    var username = params.username;
     var objId = params.objId;
 
-    collections.User.findOne({userId:userId}, function(err, user){
+    collections.User.findOne({username:username}, function(err, user){
         if (err) {
             res.status(500).send(err);
         }
@@ -122,11 +122,11 @@ router.post('/follow', function(req, res, next){
                 res.status(500).send(err);
             }
 
-            collections.User.findOne({userId: objId}, function(err, obj){
+            collections.User.findOne({username: objId}, function(err, obj){
                 if (err) {
                     res.status(500).send(err);
                 }
-                obj.followers.push(userId);
+                obj.followers.push(username);
                 obj.save(function(err, o){
                     if (err) {
                         res.status(500).send(err);
@@ -142,12 +142,12 @@ router.post('/addFriend', function(req, res, next){
     var params = req.body;
     var user1 = params.user1;
     var user2 = params.user2;
-    collections.find({userId: {$in: [user1, user2]}}, function(err, users){
+    collections.find({username: {$in: [user1, user2]}}, function(err, users){
         if (err) {
             res.status(500).send(err);
         }
-        users[0].friends.push(users[1].userId);
-        users[1].friends.push(users[2].userId);
+        users[0].friends.push(users[1].username);
+        users[1].friends.push(users[2].username);
         users[0].save(function(err, u){
             if (err) {
                 res.status(500).send(err);
@@ -168,7 +168,7 @@ router.post('/newRecipe', function(req, res, next) {
         if (err) {
             res.status(500).send(err);
         }
-        collections.User.findOne({userId: params.owner}, function(err, user){
+        collections.User.findOne({username: params.owner}, function(err, user){
             if (err) {
                 res.status(500).send(err);
             }
