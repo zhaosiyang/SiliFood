@@ -1,0 +1,121 @@
+body {
+  font-family: 'Source Sans Pro', sans-serif;
+  display: flex;
+  justify-content: center;
+  margin: 0;
+  color: white;
+  background: url("https://visualhunt.com/photos/xl/1/empty-mug.jpg");
+}
+
+#login, #container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+#container * {
+    text-decoration: none;
+}
+
+#header {
+  font-weight: 700;
+  font-size: 50px;
+  text-align: center;
+}
+
+#options{
+    position: fixed;
+    z-index: 100;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    overflow: hidden;
+}
+
+.option-style{
+    color: white;
+    font-size: 18px;
+    width: 100%;
+    display: inline;
+    padding: 10px;
+    border: none;
+    outline: none;
+    opacity: 0.9;
+    transition: opacity 0.2s;
+}
+
+.option-style:hover{
+    opacity: 1;
+}
+
+
+#flogin {
+    background-color: rgb(52, 73, 94);
+}
+
+#forgot{
+    background-color: rgb(26, 188, 156);
+}
+
+#logon {
+    color: #594443;
+    background-color: rgba(255,255,255,1);
+    border: none;
+    cursor: pointer;
+}
+
+#logon:focus{
+    color: #594443;
+    background-color: rgba(255,255,255,1);
+    width: 240px;
+}
+
+.input-style {
+  color: white;
+  border: 1px solid white;
+  border-radius: 3px;
+  outline: none;
+
+  font-size: 18px;
+  font-weight: 200;
+  text-align: center;
+
+  background-color: rgba(255,255,255,0.5);
+  transition: width 0.5s, background-color 0.5s;
+  display: block;
+  width: 240px;
+
+  padding: 15px 5px 15px 5px;
+  margin: 10px 0 10px 0;
+}
+
+.input-style:hover{
+    background-color: rgba(255,255,255,0.7);
+}
+
+.input-style:focus {
+  color: black;
+  background-color: rgba(255,255,255,0.8);
+  width: 270px;
+}
+
+.input-style::-webkit-input-placeholder {
+color: white;
+}
+
+.input-style:-moz-placeholder { /* Firefox 18- */
+color: white;
+}
+
+.input-style::-moz-placeholder {  /* Firefox 19+ */
+color: white;
+}
+
+.input-style:-ms-input-placeholder {
+color: white;
+}
+
+
