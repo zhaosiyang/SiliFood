@@ -1,6 +1,8 @@
 /**
- * Created by zhaosiyang on 2016-03-11.
+ * Including database initialization and schema design
  */
+
+
 var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/SiliFood');
 var collections = {};
@@ -14,7 +16,6 @@ db.once('open', function() {
         password: String,
         authSource: String,    // "local" or "facebook" or "google"
         recipes: {type:[String], default: []},
-        friends: {type:[String], default: []},
         followers: {type:[String], default: []},
         followings: {type:[String], default: []},
         createdAt: {type: Date, default: Date.now}
@@ -22,16 +23,13 @@ db.once('open', function() {
     var recipeSchema = mongoose.Schema({
         title: {type:String, required: true},
         owner: String,
-        ingredients: {default: {}},
+        ingredients: {type: {String:String}, default: {}},
         imageUrl: {type: [String], default: []},
         steps: {type: [String], default: []},
         notes: String,
-        ratings: {type: {String: String}, default: {}},
-        comments:{type: [{
-            commenter: String,
-            contents: String,
-            createdAt: Date
-        }], default: []},
+        ratings: {type: mongoose.Schema.Types.Mixed, default: {}},
+        averageRating: {type: Number, default: 0},
+        comments:{type:[mongoose.Schema.Types.Mixed], default: []},
         createdAt: {type: Date, default: Date.now}
     });
 

@@ -1,0 +1,46 @@
+<h1>POST: newUser</h1>
+<form action="/database/newUser" method="post">
+    username: <input type="text" name="username"> <br>
+    firstname: <input type="text" name="firstName"> <br>
+    lastname: <input type="text" name="lastName"> <br>
+    password: <input type="password" name="password"> <br>
+    authSource: <input type="text" name="authSource"> <br>
+    <input type="submit">
+</form>
+
+<!--<form action="/database/addFriend">-->
+    <!--add a -->
+<!--</form>-->
+<h1>POST: follow</h1>
+<form action="/database/follow" method="post">
+    username: <input type="text" name="username"> <br>
+    objId: <input type="text" name="objId"> <br>
+    <input type="submit">
+</form>
+
+<h1>POST: newRating</h1>
+<form action="/database/newRating" method="post">
+    Rating: <input type="text" name="rating"> <br>
+    rater: <input type="text" name="rater"><br>
+    recipeId: <input type="text" name="recipeId"> <br>
+    <input type="submit">
+</form>
+
+<h1>POST: newComment</h1>
+<form action="/database/newComment" method="post">
+    comments: <input type="text" name="contents"><br>
+    commenter: <input type="text" name="commenter"><br>
+    recipeId: <input type="text" name="recipeId"> <br>
+    <input type="submit">
+</form>
+
+<h1>POST: newRecipy</h1>
+<form action="/database/newRecipe" method="post" enctype="multipart/form-data">
+    title: <input type="text" name="title"><br>
+    owner: <input type="text" name="owner"><br>
+    ingredients: <input type="text" name="ingredients"> <br>
+    steps: <input type="text" name="steps">
+    notes: <input type="text" name="notes">
+    Image: <input type="file" name="image">
+    <input type="submit">
+</form>
