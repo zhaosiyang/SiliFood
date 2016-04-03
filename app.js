@@ -25,8 +25,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(multer({ dest: './public/uploads/'}).single('image'));
 
 
-
-
 app.use('/', routes);
 
 
