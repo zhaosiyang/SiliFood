@@ -9,7 +9,7 @@ var collections = {};
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {
-    var userSchecma = mongoose.Schema({
+    var userSchema = mongoose.Schema({
         username: {type:String, unique: true},
         firstName: String,
         lastName: String,
@@ -33,8 +33,13 @@ db.once('open', function() {
         createdAt: {type: Date, default: Date.now}
     });
 
-    collections.User = mongoose.model('user', userSchecma);
+    var cookieSchema = mongoose.Schema({
+        cookie: String
+    });
+
+    collections.User = mongoose.model('user', userSchema);
     collections.Recipe = mongoose.model('recipe', recipeSchema);
+    collections.Cookie = mongoose.model('cookie', cookieSchema);
 
 });
 

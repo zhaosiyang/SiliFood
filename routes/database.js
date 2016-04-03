@@ -12,7 +12,6 @@ var escape = require('escape-html');
 //
 router.get('/userById', function(req, res, next) {
     var username = req.query.username;
-    console.log(username);
     collections.User.findOne({username: username}, function(err, data){
         if (err) {
             res.status(500).send(err);
@@ -137,9 +136,7 @@ router.post('/newRating', function(req, res, next){
     var rater = params.rater;
     var recipeId = params.recipeId;
     var rating = params.rating;
-    //console.log(rater);
-    //console.log(rating);
-    //console.log(recipeId);
+
     if(rating!='1' && rating!='2' && rating!='3' && rating!='4' && rating!='5'){
         res.status(500).send("rating not correct");
         return;
@@ -284,19 +281,40 @@ router.post('/newUser', function(req, res, next) {
         if (err) {
             res.status(500).send(err);
         }
-        bcrypt.hash(params.password, salt, function(err, hashValue){
-            if (err) {
-                res.status(500).send(err);
-            }
-            params.password = hashValue;
-            var newUser = collections.User(params);
-            newUser.save(function(err, u){
-                if(err){
+        else{
+            bcrypt.hash(params.password, salt, function(err, hashValue){
+                if (err) {
                     res.status(500).send(err);
                 }
-                res.status(200).send("ok");
+                else{
+                    params.password = hashValue;
+                    var newUser = collections.User(params);
+                    newUser.save(function(err){
+                        if(err){
+                            res.status(500).send(err);
+                        }
+                        res.status(200).send("ok");
+                    });
+                }
+
             });
-        });
+        }
+
+    });
+});
+router.post('/deleteRecipe', function(req, res, next){
+    var recipeId = req.body.recipeId;
+    collections.Recipe.find({_id: recipeId}, function(err, recipe){
+        if(err){
+            res.status(500).send(err);
+        }
+        else if(!recipe){
+            res.status(500).send("recipe not valid");
+        }
+        else{
+            var owner = recipe.owner;
+
+        }
     });
 });
 
