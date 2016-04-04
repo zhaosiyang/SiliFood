@@ -183,6 +183,10 @@ router.post('/follow', function(req, res, next){
             res.status(500).send(err);
             return;
         }
+        if(!user){
+            res.status(500).send("not valid username");
+            return;
+        }
         user.followings.push(objId);
         user.save(function(err, u){
             if (err) {
@@ -208,6 +212,47 @@ router.post('/follow', function(req, res, next){
         });
     });
 });
+
+router.post('/unfollow', function(req, res, next){
+    var params = req.body;
+    var username = params.username;
+    var objId = params.objId;
+
+    collections.User.findOne({username:username}, function(err, user){
+        if (err) {
+            res.status(500).send(err);
+            return;
+        }
+        if(!user){
+            res.status(500).send("not valid username");
+            return;
+        }
+        user.followings.splice(user.followings.indexOf(objId),1);
+        user.markModified('followings');
+        user.save(function(err, u){
+            if (err) {
+                res.status(500).send(err);
+                return;
+            }
+            collections.User.findOne({username: objId}, function(err, obj){
+                if (err) {
+                    res.status(500).send(err);
+                    return;
+                }
+                obj.followers.splice(user.followers.indexOf(username) ,1);
+                obj.markModified('followers');
+                obj.save(function(err){
+                    if (err) {
+                        res.status(500).send(err);
+                        return;
+                    }
+                    res.status(200).send("ok");
+                });
+            });
+        });
+    });
+});
+
 router.post('/addFriend', function(req, res, next){
     var params = req.body;
     var user1 = params.user1;
@@ -313,7 +358,34 @@ router.post('/deleteRecipe', function(req, res, next){
         }
         else{
             var owner = recipe.owner;
-
+            recipe.remove(function(err){
+                if(err){
+                    res.status(500).send(err);
+                }
+                else{
+                    collections.User.findOne({username: owner}, function(err, u){
+                        if(err){
+                            res.status(500).send(err);
+                        }
+                        else if (!u){
+                            res.status(500).send("not a valid owner");
+                        }
+                        else{
+                            var i = u.recipes.indexOf(recipeId);
+                            u.recipes.splice(i,1);
+                            u.markModified('recipes');
+                            u.save(function(err){
+                                if(err){
+                                    res.status(500).send(err);
+                                }
+                                else{
+                                    res.status(200).send('ok');
+                                }
+                            });
+                        }
+                    });
+                }
+            });
         }
     });
 });
