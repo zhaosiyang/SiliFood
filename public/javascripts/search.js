@@ -1,54 +1,45 @@
+
 var app = angular.module('myApp', []);
 
-app.factory('recipeQuery', ["$location", "$http", "$scope",
-function($location, $http, $scope) {
-
-  $scope.recipeQuery = {};
-  $scope.recipeQuery.recipes = [];
-  $scope.recipeQuery.query = "";
-
-  // If user searched for something, run search
-  recipeQuery.switchSearchType = function(searchQuery) {
-    $scope.recipeQuery.typeOfSearch = searchQuery;
-
-    if (SearchService.query !== "") {
-      $scope.recipeQuery.recipes = [];
-      $scope.recipeQuery.submitSearch($scope.recipeQuery.query);
-    }
-  };
-
-  // Search function
-  $scope.recipeQuery.submitSearch = function(searchQuery) {
-      alert("dfsd");
-
-      // Alter URL to show new request, may be unnecessary with get call
-      //$location.search('search', searchQuery);
-    $scope.recipeQuery.query = searchQuery;
+app.controller('ResultsController', ['$scope', '$http',
+function($scope, $http) {
 
 
-      $http.get('/database/allUsers').
+  $scope.submitSearch = function(searchQuery) {
+
+    var searchCall = '/database/searchRecipeByTitle?title=' + searchQuery;
+
+    console.log('sent: ' + searchCall);
+
+      $http.get(searchCall).
         success(function(data, status, headers, config) {
-          console.log(data);
-          $scope.recipeQuery.recipes = data;
+        console.log('data: ' + data[0].title);
+          $scope.recipes = data;
         }).
         error(function(data, status, headers, config) {
-          $scope.recipeQuery.recipes = [];
+        console.log('failed');
+          $scope.recipes = [];
         });
+
   };
 
-  return $scope.recipeQuery;
-}]);
+  $scope.range = function(recipeRating) {
 
-app.controller('ResultsController', ['$scope', 'recipeQuery',
-function($scope, recipeQuery) {
+    var ratings = [];
+    for (i = 0; i < recipeRating; i++) {
+      rating.push(i);
+    }
+    return i;
+  };
 
-  // Create a reference to the recipeQuery so html can access it
-  $scope.recipes = recipeQuery;
-}]);
+    $http.get('/database/recipeOrderByRating?number=3').success(function (data, status, headers, config) {
+      console.log('data: ' + data[0].title);
+      $scope.trending = data;
+    }).error(function (data, status, headers, config) {
+      console.log('failed');
+      $scope.trending = [];
+    });
 
-app.controller('QueryController', ['$scope', 'recipeQuery', '$http',
-'$location', function($scope, recipeQuery, $http, $location) {
 
-  // Your search input
-  $scope.query = "";
+
 }]);
