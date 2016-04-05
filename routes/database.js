@@ -305,15 +305,27 @@ router.post('/newUser', function(req, res, next) {
                         if(err){
                             res.status(500).send(err);
                         }
-                        res.status(200).send("ok");
+                        else{
+                            res.send('ok');
+                        }
                     });
                 }
 
             });
         }
-
     });
 });
+//
+//router.post('/addProfileImage', function(req, res, next){
+//    fs.readFile(req.file.path, function (err, data) {
+//        fs.writeFile("./public/profileImage/" + newUser.username + ".jpg", data, function (err) {
+//            if(err){res.status(500).send(err);}
+//            else{
+//                res.send("ok");
+//            }
+//        });
+//    });
+//});
 router.post('/deleteRecipe', function(req, res, next){
     var recipeId = req.body.recipeId;
     collections.Recipe.find({_id: recipeId}, function(err, recipe){

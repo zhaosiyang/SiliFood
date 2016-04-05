@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 
 <html lang="en-US">
@@ -18,7 +19,7 @@
 
 </head>
 
-<body id="main" ng-app="myApp" ng-controller="ResultsController">
+<body id="main" ng-app="myApp" ng-controller="ResultsController" ng-init="username = '<%= username%>'">
     <!-- Top Horizontal Main Menu -->
     <div class="ui fixed inverted main menu" id="top-menu" style="background-color: rgb(50, 24, 126)">
         <a class="item">
@@ -88,17 +89,16 @@
 						<div class="ui raised text compact piled container segment" style= "width : 100%">
 							<div class="ui horizontal segments">
 								<div class="ui segment" style="width : 35%">
-									<!-- <img src="/stylesheets/Images/blueberries.png" height=100px width=100px></img> -->
+									 <img ng-src="/recipeImage/{{rec._id}}.jpg" height=100px width=100px></img>
 									<br>
-									<i class="star icon" ng-repeat="rating in range(rec.rating)"></i>
+									<i class="star icon" ng-repeat='star in range(rec.rating)'></i>
 								</div>
 								<div class="ui segment" style="width : 65%">
 									<h3 style="color: black">
 										{{ rec.title }}
 									</h3>
 									<p>
-										A General Discription or Bio for this particular recipe.
-										Could Include country of origin, history, etc.
+										{{ 'Notes: ' + rec.notes }}
 									</p>
 								</div>
 							</div>
@@ -129,7 +129,7 @@
 								<div class="ui horizontal segments">
 									<!-- Profile Picture and Username in one segment to keep constant sizes -->
 									<div class="ui segment" style="width : 25%">
-										<img class="ui circular avatar image" src=""><span>Current User</span>
+										<img class="ui circular avatar image" src=""><span>{{ username }}</span>
 									</div>
 									<div class="ui segment" style="width : 75%">
 										<div class="ui input" style= "width : 100%">
@@ -153,6 +153,9 @@
                     See What Recipies are Trending Now!
                 </h2>
 
+            </div>
+            <div class="row" ng-repeat="trend in trending">
+                {{ "Title: " + trend.title }}
             </div>
         </div>
     </div>

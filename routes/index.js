@@ -54,12 +54,13 @@ router.post('/signup', function(req, res, next){
 router.post('/login', function(req, res, next) {
     var username = req.body.username;
     var password = req.body.password;
+    console.log(req.body);
     collections.User.findOne({username:username}, function(err, user){
         if(err){
             res.send(err);
         }
         if (!user) {
-            res.status(401).render("username not found");
+            res.status(401).send("username not found");
         }
         else {
             var hashedPassword = user.password;
@@ -74,7 +75,7 @@ router.post('/login', function(req, res, next) {
                             }
                         });
                         res.cookie('siliFoodAuth', salt, {maxAge: 3600000}); //expire one min later
-                        setTimeout(res.redirect('/profile'),2000);
+                        setTimeout(res.render('profile', {username:username}),2000);
                     });
                 }
                 else {   //wrong password
@@ -84,7 +85,6 @@ router.post('/login', function(req, res, next) {
         }
     });
 });
-
 
 // facebook authentication
 router.get('/auth/facebook',
@@ -123,17 +123,24 @@ router.use(function(req, res, next){
             res.render('index');
         }
         else{
-            res.render('profile');
+            //res.render('profile', {username: c.username});
+            req.username = c.username;
+            next();
         }
     });
 });
 
+router.get('/', function(req, res, next){
+    res.render('profile', {username: req.username});
+});
+
 router.get('/search', function(req, res, next){
-    res.render('search');
+    res.render('search', {username:req.username});
 });
 
 router.get('/testDB', function(req, res, next){
   res.render("testDB");
 });
+
 
 module.exports = router;

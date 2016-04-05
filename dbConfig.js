@@ -29,12 +29,14 @@ db.once('open', function() {
         notes: String,
         ratings: {type: mongoose.Schema.Types.Mixed, default: {}},
         averageRating: {type: Number, default: 0},
-        comments:{type:[mongoose.Schema.Types.Mixed], default: []},
+        comments:{type:mongoose.Schema.Types.Mixed, default: []},
         createdAt: {type: Date, default: Date.now}
     });
 
     var cookieSchema = mongoose.Schema({
-        cookie: String
+        cookie: String,
+        username: String,
+        createdAt: {type: Date, default: Date.now, expires: 3600}
     });
 
     collections.User = mongoose.model('user', userSchema);
