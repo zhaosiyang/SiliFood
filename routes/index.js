@@ -123,9 +123,15 @@ router.use(function(req, res, next){
             res.render('index');
         }
         else{
-            res.render('profile');
+            //res.render('profile', {username: c.username});
+            req.username = c.username;
+            next();
         }
     });
+});
+
+router.get('/', function(req, res, next){
+    res.render('profile', {username: req.username});
 });
 
 router.get('/search', function(req, res, next){
