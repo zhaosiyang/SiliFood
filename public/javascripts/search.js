@@ -10,21 +10,21 @@ function($scope, $http) {
 
       $http.get(searchCall).
         success(function(data, status, headers, config) {
-          $scope.recipes = [data];
+          $scope.recipes = data;
         }).
         error(function(data, status, headers, config) {
-          ;
+          $scope.recipes = [];
         });
 
-  }
+  };
 
   $scope.range = function(recipeRating) {
 
     var ratings = [];
-    for {i=0; i < recipe.Rating; i++} {
+    for (i=0; i < recipe.Rating; i++) {
       rating.push(i);
     }
     return i;
-  }
+  };
 
 }]);
