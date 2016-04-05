@@ -135,7 +135,7 @@ router.get('/', function(req, res, next){
 });
 
 router.get('/search', function(req, res, next){
-    res.render('search');
+    res.render('search', {username:req.username});
 });
 
 router.get('/testDB', function(req, res, next){
