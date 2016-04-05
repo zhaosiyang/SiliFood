@@ -2,35 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="defb0d4a-1cd1-409d-b6f9-14c8d0dce2dc" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/javascripts/search.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/recipeImage/56fb39feb4d408b322cdc780.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/recipeImage/57016cbf97671f753fc9b969.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/recipeImage/57017108be0096db3f820e92.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/uploads/987583cd49a1fbe2a9affc5e47934162" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/views/search.ejs" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/bcrypt/build/Release/bcrypt_lib.node" afterPath="$PROJECT_DIR$/node_modules/bcrypt/build/Release/bcrypt_lib.node" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/bcrypt/build/Release/obj.target/bcrypt_lib/src/bcrypt.o" afterPath="$PROJECT_DIR$/node_modules/bcrypt/build/Release/obj.target/bcrypt_lib/src/bcrypt.o" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/bcrypt/build/Release/obj.target/bcrypt_lib/src/bcrypt_node.o" afterPath="$PROJECT_DIR$/node_modules/bcrypt/build/Release/obj.target/bcrypt_lib/src/bcrypt_node.o" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/bcrypt/build/Release/obj.target/bcrypt_lib/src/blowfish.o" afterPath="$PROJECT_DIR$/node_modules/bcrypt/build/Release/obj.target/bcrypt_lib/src/blowfish.o" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/bcrypt/build/Makefile" afterPath="$PROJECT_DIR$/node_modules/bcrypt/build/Makefile" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/bcrypt/build/Release/.deps/Release/obj.target/bcrypt_lib/src/bcrypt.o.d" afterPath="$PROJECT_DIR$/node_modules/bcrypt/build/Release/.deps/Release/obj.target/bcrypt_lib/src/bcrypt.o.d" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/bcrypt/build/Release/.deps/Release/obj.target/bcrypt_lib/src/bcrypt_node.o.d" afterPath="$PROJECT_DIR$/node_modules/bcrypt/build/Release/.deps/Release/obj.target/bcrypt_lib/src/bcrypt_node.o.d" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/bcrypt/build/Release/.deps/Release/obj.target/bcrypt_lib/src/blowfish.o.d" afterPath="$PROJECT_DIR$/node_modules/bcrypt/build/Release/.deps/Release/obj.target/bcrypt_lib/src/blowfish.o.d" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/bcrypt/build/bcrypt_lib.target.mk" afterPath="$PROJECT_DIR$/node_modules/bcrypt/build/bcrypt_lib.target.mk" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/bcrypt/build/config.gypi" afterPath="$PROJECT_DIR$/node_modules/bcrypt/build/config.gypi" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/bcrypt/package.json" afterPath="$PROJECT_DIR$/node_modules/bcrypt/package.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/bson/package.json" afterPath="$PROJECT_DIR$/node_modules/bson/package.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/content-type/package.json" afterPath="$PROJECT_DIR$/node_modules/content-type/package.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/ms/package.json" afterPath="$PROJECT_DIR$/node_modules/ms/package.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/passport-facebook/package.json" afterPath="$PROJECT_DIR$/node_modules/passport-facebook/package.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/passport-strategy/package.json" afterPath="$PROJECT_DIR$/node_modules/passport-strategy/package.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/passport/package.json" afterPath="$PROJECT_DIR$/node_modules/passport/package.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/require_optional/package.json" afterPath="$PROJECT_DIR$/node_modules/require_optional/package.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/semver/package.json" afterPath="$PROJECT_DIR$/node_modules/semver/package.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/streamsearch/package.json" afterPath="$PROJECT_DIR$/node_modules/streamsearch/package.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/routes/database.js" afterPath="$PROJECT_DIR$/routes/database.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/routes/index.js" afterPath="$PROJECT_DIR$/routes/index.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/profile.ejs" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/profile.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/javascripts/search.js" afterPath="$PROJECT_DIR$/public/javascripts/search.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/search.ejs" afterPath="$PROJECT_DIR$/views/search.ejs" />
     </list>
     <ignored path="SiliFood.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -96,8 +71,8 @@
       <file leaf-file-name="search.ejs" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/views/search.ejs">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.77944326">
-              <caret line="155" column="58" selection-start-line="155" selection-start-column="58" selection-end-line="155" selection-end-column="58" />
+            <state vertical-scroll-proportion="0.75588864">
+              <caret line="165" column="0" selection-start-line="165" selection-start-column="0" selection-end-line="165" selection-end-column="0" />
               <folding>
                 <element signature="n#style#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
@@ -122,8 +97,8 @@
       <file leaf-file-name="search.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/public/javascripts/search.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-9.185185">
-              <caret line="33" column="0" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
+            <state vertical-scroll-proportion="-0.0">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -172,8 +147,8 @@
         <option value="$PROJECT_DIR$/dbConfig.js" />
         <option value="$PROJECT_DIR$/routes/database.js" />
         <option value="$PROJECT_DIR$/routes/index.js" />
-        <option value="$PROJECT_DIR$/views/search.ejs" />
         <option value="$PROJECT_DIR$/public/javascripts/search.js" />
+        <option value="$PROJECT_DIR$/views/search.ejs" />
       </list>
     </option>
   </component>
@@ -826,16 +801,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/public/javascripts/search.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-9.185185">
-          <caret line="33" column="0" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
+        <state vertical-scroll-proportion="-0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/views/search.ejs">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.77944326">
-          <caret line="155" column="58" selection-start-line="155" selection-start-column="58" selection-end-line="155" selection-end-column="58" />
+        <state vertical-scroll-proportion="0.75588864">
+          <caret line="165" column="0" selection-start-line="165" selection-start-column="0" selection-end-line="165" selection-end-column="0" />
           <folding>
             <element signature="n#style#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
