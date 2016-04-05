@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+
+<html lang="en-US">
+<head>
+    <title>SiliFood.</title>
+  <link rel="stylesheet" href="/stylesheets/search.css" type="text/css">
+
+    <link rel="stylesheet" type="text/css" href="/stylesheets/Semantic-UI-CSS-master/dist/semantic.min.css">
+    <script src="/stylesheets/Semantic-UI-CSS-master/dist/semantic.min.js" type="text/javascript"></script>
+
+    <!--
+    <script language="javascript" type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
+    -->
+    <script language="javascript" type="text/javascript" src="/stylesheets/Semantic-UI-CSS-master/dist/semantic.js"></script>
+
+	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+	<script src="/javascripts/search.js"></script>
+
+</head>
+
+<body id="main" ng-app="myApp" ng-controller="ResultsController">
+    <!-- Top Horizontal Main Menu -->
+    <div class="ui fixed inverted main menu" id="top-menu" style="background-color: rgb(50, 24, 126)">
+        <a class="item">
+            <i class="home icon"></i>
+            SiliFood.
+        </a>
+        <a class="item">
+            <i class="add square icon"></i>
+            Create a Recipe
+        </a>
+        <a class="item">
+            <i class="write square icon"></i>
+            Edit a Recipe
+        </a>
+        <a class="item">
+            <i class="share icon"></i>
+            Share a Recipe
+        </a>
+        <a class="item">
+            <i class="sign out icon"></i>
+            Sign Out
+        </a>
+        <div class="ui icon input">
+          <form name="search" role="form">
+            <input type="text" class="form-control" ng-model="query" name="search" required>
+            <span class="input-group-addon">
+                <button class="btn-search" ng-click="recipes.submitSearch(query)">
+                    Search
+                </button>
+            </span>
+          </form>
+        </div>
+    </div>
+    <!-- End Main Menu -->
+
+    <!-- Start Grid -->
+    <div class="ui grid" id="display-grid">
+        <div class="ui four wide column">
+            <div class="ui vertical fluid tabular menu">
+                <!-- Left Side Menu (Ads for now) -->
+                <div class="ui segment" id="ad-display" style="position: fixed">
+                    <div class="ui sticky">
+                        <h3 class="ui header">Buy some crap you don't need!</h3>
+                        <img src="" alt="Your Ad Here"></img>
+                    </div>
+                </div>
+                <!-- End Left Side Menu -->
+            </div>
+        </div>
+
+        <!-- Search Results Display -->
+        <div class="ui eight wide column grid" id="information-display">
+            <br/><br/>
+            <!-- Start Top row -->
+            <div class="row">
+                <div class="twenty wide column">
+                    <a class="item">
+                        <h2 class="ui header">Search Results</h2>
+                    </a>
+                </div>
+            </div>
+            <!-- End Top row -->
+            <!-- Start Search Results Column (this should be independently scrollable)-->
+				<div class="row" ng-repeat="rec in recipes.recipeQuery">
+					<div class="twenty wide column">
+						<!-- Start Popup Section (Individual Recipe) -->
+						<div class="ui raised text compact piled container segment" style= "width : 100%">
+							<div class="ui horizontal segments">
+								<div class="ui segment" style="width : 35%">
+									<!--<img src="/stylesheets/Images/blueberries.png" height=100px width=100px></img>-->
+									<br>
+									{{ "Rating: " + rec.username }}
+									<i class="star icon"></i>
+									<i class="star icon"></i>
+									<i class="star icon"></i>
+									<i class="star icon"></i>
+									<i class="star icon"></i>
+								</div>
+								<div class="ui segment" style="width : 65%">
+									<h3 style="color: black">
+										<!--{{ "Title: " + rec.title }}-->
+									</h3>
+									<p>
+										A General Discription or Bio for this particular recipe.
+										Could Include country of origin, history, etc.
+									</p>
+								</div>
+							</div>
+							<!-- Start Steps Section -->
+							<div class="ui segment">
+								<!--<p>{{ "Steps: " rec.steps }}</p>-->
+							</div>
+							<!-- End Steps Section -->
+							<!-- Start Comments Segment -->
+							<div class="ui segment" style= "width : 100%" style="background-color: rgb(50, 24, 126)">
+								<!-- Horizontal Segment for each Comment -->
+
+								<!-- Start Comment -->
+								<div class="ui horizontal segments">
+									<!-- Profile Picture and Username in one segment to keep constant sizes -->
+									<div class="ui segment" style="width : 25%">
+										<img class="ui circular avatar image" src=""><span>Username</span>
+									</div>
+									<!-- User Comment Text in another segment to keep constant sizes -->
+									<div class="ui segment" style="width : 75%">
+										<div class="ui input" style= "width : 100%">
+											<p>This is just a p tag. Displays the comment provided but doesn't have a way to edit it</p>
+										</div>
+									</div>
+								</div>
+								<!-- End Comment -->
+								<!-- Start Comment -->
+								<div class="ui horizontal segments">
+									<!-- Profile Picture and Username in one segment to keep constant sizes -->
+									<div class="ui segment" style="width : 25%">
+										<img class="ui circular avatar image" src=""><span>Really Long Username</span>
+									</div>
+									<div class="ui segment" style="width : 75%">
+										<div class="ui input" style= "width : 100%">
+											<input type="text" placeholder="Comment..." />
+										</div>
+									</div>
+								</div>
+								<!-- End Comment -->
+							</div>
+							<!-- End Comments Segment -->
+						</div>
+						<!-- End Popup Section (Individual Recipe) -->
+					</div>
+				</div>
+        </div>
+        <!-- End Search Results Display -->
+        <div class="ui four wide column" style="position: fixed">
+            <br/><br/>
+            <div class="item">
+                <h2 class="ui header">
+                    See What Recipies are Trending Now!
+                </h2>
+                <!--
+					<div class="row" ng-repeat="rec in recipes | orderBy : 'title'">
+						{{ "Title: " + rec.title }}
+						<br/>
+						{{ "Image: " + rec.imageUrl }}
+					</div>
+        -->
+            </div>
+        </div>
+    </div>
+
+    <!-- End Grid -->
+</body>
+</html>

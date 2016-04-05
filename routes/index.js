@@ -11,6 +11,10 @@ router.get('/', function(req, res, next) {
 router.use(passport.initialize());
 router.use(passport.session());
 
+router.get('/search', function(req, res, next){
+    res.render('search');
+});
+
 router.get('/auth/facebook',
     passport.authenticate('facebook'));
 

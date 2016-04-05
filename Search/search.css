@@ -1,0 +1,38 @@
+a {
+    font-family: 'Helvetica';
+    text-decoration: none;
+}
+
+a.hover {
+    text-decoration: underline;
+}
+
+#hoverable {
+    text-decoration: none;
+}
+
+#hoverable:hover {
+    text-decoration: underline;
+}
+
+body {
+    background-color: rgb(0, 0, 100);
+}
+
+h3{
+    color: red;
+}
+
+#footer {
+    position: fixed;
+    padding-top: 10px;
+    padding-bottom: 0px;
+    text-align: center;
+    color: red;
+}
+
+#rightHandScrollable {
+    overflow-y: scroll;
+    height: 200px;
+    overflow-x: hidden;
+}
