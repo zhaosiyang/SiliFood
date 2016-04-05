@@ -1,2 +1,436 @@
-<!--for testing-->
-<h1>hello, <%=username %></h1>
+<!DOCTYPE html>
+
+<html lang="en-US">
+    <title>SiliFood.</title>
+    
+    <script language="javascript" type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
+    
+    <link href="search.css" type="text/css" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.11.8/semantic.min.css"/>
+    
+    
+    <script language="javascript" type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.11.8/semantic.min.js"></script>
+
+
+    <script language="javascript" type="text/javascript" src="/javascripts/SearchStyling.js"></script>
+    
+    <script language="javascript" type="text/javascript" src="/javascripts/profile.js"></script>
+</head>
+
+<body id="main" ng-app="myApp" ng-controller="LoadProfileInformationController" ng-init="username='<%=username%>'"> <!-- ng-init takes the user who's profile page this is -->
+    <!-- Top Horizontal Main Menu -->
+    <div class="ui fixed inverted main menu" id="top-menu" style="background-color: rgb(50, 24, 126)">
+        <a class="item">
+            <i class="home icon"></i>
+            SiliFood.
+        </a>
+        <a class="item">
+            <i class="add square icon"></i>
+            Create a Recipe
+        </a>
+        <a class="item">
+            <i class="write square icon"></i>
+            Edit a Recipe
+        </a>
+        <a class="item">
+            <i class="share icon"></i>
+            Share a Recipe
+        </a>
+        <a class="item" href="/">
+            <i class="sign out icon"></i>
+            Sign Out
+        </a>
+        <div class="ui icon input">
+            <i class="search icon"></i>
+            <input type="text" placeholder="Search..."/>
+        </div>
+    </div>
+    <!-- End Main Menu --> 
+    
+    <!-- Start Grid -->
+    <div class="ui grid" id="display-grid">
+        <div class="ui five wide column">
+            <div class="ui vertical fluid tabular menu">
+                <!-- Left Side Menu (Personal Information and Picture) -->
+                <div class="ui segment" id="profile-display" style="position: fixed; width: 30%"> <!-- Width of full screen -->
+                    <div class="ui sticky">
+                        <h1 class="ui header">Welcome</h1>
+                        
+                        <h2 id="profile-name">{{testUser.fullName}}</h2>
+                        <img id="profile-picture" src="Images/yourAd.jpg" alt="Your Ad Here" height=325px width=325px></img>
+                        <!-- <div id="profile-bio" class="ui segment">-->
+                        <div id="profile-bio" class="column">
+                            <div class="ui segment" id="bioScrollable"> <!-- style="width: 100%" -->
+                                <h3 class="ui header">About Me</h3>
+                                <p>{{testUser.bio}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Left Side Menu -->
+            </div>
+        </div>
+        
+        <!-- My Recipies Display -->
+        <div class="ui eight wide column grid" id="information-display">
+            <br/><br/>
+            <!-- Start Top row -->
+            <div class="row">
+                <div class="twenty wide column">
+                    <a class="item">
+                        <h2 class="ui header">My Recipies</h2>
+                    </a>
+                </div>
+            </div>
+            <!-- End Top row -->
+            <!-- Start My Recipies Column -->
+            <div class="row">
+                <div class="twenty wide column">
+                    <!-- Start Popup Section (Individual Recipe) -->
+                    <div class="ui raised text compact piled container segment" style= "width : 100%">
+                        <div class="ui horizontal segments">
+                            <div class="ui segment" style="width : 35%">
+                                <img src="./Images/blueberries.png" height=100px width=100px></img>
+                                <br/>
+                                <i class="star icon"></i>
+                                <i class="star icon"></i>
+                                <i class="star icon"></i>
+                                <i class="star icon"></i>
+                                <i class="star icon"></i>
+                            </div>
+                            <div class="ui segment" style="width : 65%">
+                                <h3 style="color: black">
+                                    Recipe 1 Title
+                                </h3>
+                                <p>
+                                    A General Discription or Bio for this particular recipe.
+                                    Could Include country of origin, history, etc.
+                                </p>
+                            </div>
+                        </div>
+                        <!-- Start Steps Section -->
+                        <div class="ui segment">
+                            <h4><b>Step 1</b></h4>
+                            <p>Go to the store and buy some food</p>
+
+                            <h4><b>Step 2</b></h4>
+                            <p>Put the food in something hot</p>
+
+                            <h4><b>Step 3</b></h4>
+                            <p>Eat the food now. Yum.</p>
+                        </div>
+                        <!-- End Steps Section -->
+                        <!-- Start Comments Segment -->
+                        <div class="ui segment" style= "width : 100% ; background-color: rgb(50, 24, 126)">
+                            <!-- Horizontal Segment for each Comment -->
+                            
+                            <!-- Start Comment -->
+                            <div class="ui horizontal segments">
+                                <!-- Profile Picture and Username in one segment to keep constant sizes -->
+                                <div class="ui segment" style="width : 25%">
+                                    <img class="ui circular avatar image" src="/images/wireframe/square-image.png"><span>Username</span>
+                                </div>
+                                <!-- User Comment Text in another segment to keep constant sizes -->
+                                <div class="ui segment" style="width : 75%">
+                                    <div class="ui input" style= "width : 100%">
+                                        <p>This is just a p tag. Displays the comment provided but doesn't have a way to edit it</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Comment -->
+                            <!-- Start Comment -->
+                            <div class="ui horizontal segments">
+                                <!-- Profile Picture and Username in one segment to keep constant sizes -->
+                                <div class="ui segment" style="width : 25%">
+                                    <img class="ui circular avatar image" src="/images/wireframe/square-image.png"><span>Really Long Username</span>
+                                </div>
+                                <div class="ui segment" style="width : 75%">
+                                    <div class="ui input" style= "width : 100%">
+                                        <input type="text" placeholder="Comment..." />
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Comment -->
+                        </div>
+                        <!-- End Comments Segment -->
+                    </div>
+                    <!-- End Popup Section (Individual Recipe) -->
+                </div>
+            </div>
+            <div class="row">
+                <div class="twenty wide column">
+                    <!-- Start Popup Section (Individual Recipe) -->
+                    <div class="ui raised text compact piled container segment" style= "width : 100%">
+                        <div class="ui horizontal segments">
+                            <div class="ui segment" style="width : 35%">
+                                <img src="./Images/hamburger.png" height=100px width=100px></img>
+                                <br/>
+                                <i class="star icon"></i>
+                                <i class="star icon"></i>
+                                <i class="half star icon"></i>
+                            </div>
+                            <div class="ui segment" style="width : 65%">
+                                <h3 style="color: black">
+                                    Recipe 2 Title
+                                </h3>
+                                <p>
+                                    A General Discription or Bio for this particular recipe.
+                                    Could Include country of origin, history, etc.
+                                </p>
+                            </div>
+                        </div>
+                        <!-- Start Steps Section -->
+                        <div class="ui segment">
+                            <h4><b>Step 1</b></h4>
+                            <p>Go to the store and buy some food</p>
+
+                            <h4><b>Step 2</b></h4>
+                            <p>Put the food in something hot</p>
+
+                            <h4><b>Step 3</b></h4>
+                            <p>Eat the food now. Yum.</p>
+                        </div>
+                        <!-- End Steps Section -->
+                        <!-- Start Comments Segment -->
+                        <div class="ui segment" style= "width : 100% ; background-color: rgb(50, 24, 126)">
+                            <!-- Horizontal Segment for each Comment -->
+                            
+                            <!-- Start Comment -->
+                            <div class="ui horizontal segments">
+                                <!-- Profile Picture and Username in one segment to keep constant sizes -->
+                                <div class="ui segment" style="width : 25%">
+                                    <img class="ui circular avatar image" src="/images/wireframe/square-image.png"><span>Username</span>
+                                </div>
+                                <!-- User Comment Text in another segment to keep constant sizes -->
+                                <div class="ui segment" style="width : 75%">
+                                    <div class="ui input" style= "width : 100%">
+                                        <p>This is just a p tag. Displays the comment provided but doesn't have a way to edit it</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Comment -->
+                            <!-- Start Comment -->
+                            <div class="ui horizontal segments">
+                                <!-- Profile Picture and Username in one segment to keep constant sizes -->
+                                <div class="ui segment" style="width : 25%">
+                                    <img class="ui circular avatar image" src="/images/wireframe/square-image.png"><span>Really Long Username</span>
+                                </div>
+                                <div class="ui segment" style="width : 75%">
+                                    <div class="ui input" style= "width : 100%">
+                                        <input type="text" placeholder="Comment..." />
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Comment -->
+                        </div>
+                        <!-- End Comments Segment -->
+                    </div>
+                    <!-- End Popup Section (Individual Recipe) -->
+                </div>
+            </div>
+            <div class="row">
+                <div class="twenty wide column">
+                    <!-- Start Popup Section (Individual Recipe) -->
+                    <div class="ui raised text compact piled container segment" style= "width : 100%">
+                        <div class="ui horizontal segments">
+                            <div class="ui segment" style="width : 35%">
+                                <img src="./Images/cookie.png" height=100px width=100px></img>
+                                <br/>
+                                <i class="star icon"></i>
+                                <i class="star icon"></i>
+                                <i class="star icon"></i>
+                                <i class="star icon"></i>
+                                <i class="half star icon"></i>
+                            </div>
+                            <div class="ui segment" style="width : 65%">
+                                <h3 style="color: black">
+                                    Recipe 3 Title
+                                </h3>
+                                <p>
+                                    A General Discription or Bio for this particular recipe.
+                                    Could Include country of origin, history, etc.
+                                </p>
+                            </div>
+                        </div>
+                        <!-- Start Steps Section -->
+                        <div class="ui segment">
+                            <h4><b>Step 1</b></h4>
+                            <p>Go to the store and buy some food</p>
+
+                            <h4><b>Step 2</b></h4>
+                            <p>Put the food in something hot</p>
+
+                            <h4><b>Step 3</b></h4>
+                            <p>Eat the food now. Yum.</p>
+                        </div>
+                        <!-- End Steps Section -->
+                        <!-- Start Comments Segment -->
+                        <div class="ui segment" style= "width : 100% ; background-color: rgb(50, 24, 126)">
+                            <!-- Horizontal Segment for each Comment -->
+                            
+                            <!-- Start Comment -->
+                            <div class="ui horizontal segments">
+                                <!-- Profile Picture and Username in one segment to keep constant sizes -->
+                                <div class="ui segment" style="width : 25%">
+                                    <img class="ui circular avatar image" src="/images/wireframe/square-image.png"><span>Username</span>
+                                </div>
+                                <!-- User Comment Text in another segment to keep constant sizes -->
+                                <div class="ui segment" style="width : 75%">
+                                    <div class="ui input" style= "width : 100%">
+                                        <p>This is just a p tag. Displays the comment provided but doesn't have a way to edit it</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Comment -->
+                            <!-- Start Comment -->
+                            <div class="ui horizontal segments">
+                                <!-- Profile Picture and Username in one segment to keep constant sizes -->
+                                <div class="ui segment" style="width : 25%">
+                                    <img class="ui circular avatar image" src="/images/wireframe/square-image.png"><span>Really Long Username</span>
+                                </div>
+                                <div class="ui segment" style="width : 75%">
+                                    <div class="ui input" style= "width : 100%">
+                                        <input type="text" placeholder="Comment..." />
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Comment -->
+                        </div>
+                        <!-- End Comments Segment -->
+                    </div>
+                    <!-- End Popup Section (Individual Recipe) -->
+                </div>
+            </div>
+        </div>
+        <!-- End My Recipies Display -->
+        <!-- Start Right Side Menu -->
+        <div class="ui three wide column" style="position: fixed">
+            <br/><br/>
+            <div class="item">
+                <h2 class="ui header">
+                    Followers
+                </h2>
+                <!-- SCROLL HERE (Scrollable results for followers) -->
+                <div class="ui vertical segments" id="rightHandScrollable" ng-repeat="x in user.followers">
+                    <!-- http.get('/userById?x') -->
+                    <!-- Repeat for each follower in this User's followers -->
+                    <!-- On each iteration, the follower variable should change to the next user -->
+                    <div ng-controller="userToFollowTag">
+                    
+                        <div class="ui horizontal segments">
+                            <!-- Profile Picture and Username in one segment to keep constant sizes -->
+                            <div class="ui segment" style="width : 25%">
+                                <img class="ui circular avatar image" src='{{x.picture}}'>
+                            </div>
+                            <!-- User Comment Text in another segment to keep constant sizes -->
+                            <div class="ui segment" style="width : 75%">
+                                <div class="ui input" style= "width : 100%">
+                                    <p>{{follower.firstName + " " + follower.lastName}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    
+                    </div>
+                </div>
+                <!-- END SCROLL HERE -->
+                <h2 class="ui header">
+                    Following
+                </h2>
+                <!-- SCROLL HERE -->
+                <div class="ui vertical segments" id="rightHandScrollable">
+                    <div class="ui horizontal segments">
+                        <!-- Profile Picture and Username in one segment to keep constant sizes -->
+                        <div class="ui segment" style="width : 25%">
+                            <img class="ui circular avatar image" src="/images/wireframe/square-image.png">
+                        </div>
+                        <!-- User Comment Text in another segment to keep constant sizes -->
+                        <div class="ui segment" style="width : 75%">
+                            <div class="ui input" style= "width : 100%">
+                                <p>UserName</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ui horizontal segments">
+                        <!-- Profile Picture and Username in one segment to keep constant sizes -->
+                        <div class="ui segment" style="width : 25%">
+                            <img class="ui circular avatar image" src="/images/wireframe/square-image.png">
+                        </div>
+                        <!-- User Comment Text in another segment to keep constant sizes -->
+                        <div class="ui segment" style="width : 75%">
+                            <div class="ui input" style= "width : 100%">
+                                <p>UserName</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ui horizontal segments">
+                        <!-- Profile Picture and Username in one segment to keep constant sizes -->
+                        <div class="ui segment" style="width : 25%">
+                            <img class="ui circular avatar image" src="/images/wireframe/square-image.png">
+                        </div>
+                        <!-- User Comment Text in another segment to keep constant sizes -->
+                        <div class="ui segment" style="width : 75%">
+                            <div class="ui input" style= "width : 100%">
+                                <p>UserName</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ui horizontal segments">
+                        <!-- Profile Picture and Username in one segment to keep constant sizes -->
+                        <div class="ui segment" style="width : 25%">
+                            <img class="ui circular avatar image" src="/images/wireframe/square-image.png">
+                        </div>
+                        <!-- User Comment Text in another segment to keep constant sizes -->
+                        <div class="ui segment" style="width : 75%">
+                            <div class="ui input" style= "width : 100%">
+                                <p>UserName</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ui horizontal segments">
+                        <!-- Profile Picture and Username in one segment to keep constant sizes -->
+                        <div class="ui segment" style="width : 25%">
+                            <img class="ui circular avatar image" src="/images/wireframe/square-image.png">
+                        </div>
+                        <!-- User Comment Text in another segment to keep constant sizes -->
+                        <div class="ui segment" style="width : 75%">
+                            <div class="ui input" style= "width : 100%">
+                                <p>UserName</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ui horizontal segments">
+                        <!-- Profile Picture and Username in one segment to keep constant sizes -->
+                        <div class="ui segment" style="width : 25%">
+                            <img class="ui circular avatar image" src="/images/wireframe/square-image.png">
+                        </div>
+                        <!-- User Comment Text in another segment to keep constant sizes -->
+                        <div class="ui segment" style="width : 75%">
+                            <div class="ui input" style= "width : 100%">
+                                <p>UserName</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ui horizontal segments">
+                        <!-- Profile Picture and Username in one segment to keep constant sizes -->
+                        <div class="ui segment" style="width : 25%">
+                            <img class="ui circular avatar image" src="/images/wireframe/square-image.png">
+                        </div>
+                        <!-- User Comment Text in another segment to keep constant sizes -->
+                        <div class="ui segment" style="width : 75%">
+                            <div class="ui input" style= "width : 100%">
+                                <p>UserName</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- END SCROLL HERE -->
+            </div>
+        </div>
+        <!-- End Right Side Menu -->
+    </div>
+    <!-- End Grid -->
+</body>
+</html>
