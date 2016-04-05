@@ -11,7 +11,7 @@ var escape = require('escape-html');
 
 //
 router.get('/userById', function(req, res, next) {
-    var username = req.query.username;
+    var username = escape(req.query.username);
     collections.User.findOne({username: username}, function(err, data){
         if (err) {
             res.status(500).send(err);
@@ -41,7 +41,7 @@ router.get('/recipeById', function(req, res, next) {
 });
 
 router.get('/allUsers', function(req, res, next) {
-    collections.Recipe.find({}, function(err, data){
+    collections.User.find({}, function(err, data){
         if (err) {
             res.status(500).send(err);
         }
@@ -52,7 +52,7 @@ router.get('/allUsers', function(req, res, next) {
 });
 
 router.get('/allRecipesByUsername', function(req, res, next) {
-    var username = req.query.username;
+    var username = escape(req.query.username);
     collections.User.findOne({username: username}, function(err, user){
         if (err) {
             res.status(500).send(err);
@@ -95,7 +95,7 @@ router.get('/recipeOrderByRating', function(req, res, next){
 });
 
 router.get('/searchRecipeByTitle', function(req, res, next){
-    var title = req.query.title;
+    var title = escape(req.query.title);
     collections.Recipe.find({title: {$regex: title, $options: 'i'}}, function(err, recipes){
         if(err){
             res.status(500).send(err);
@@ -108,9 +108,9 @@ router.get('/searchRecipeByTitle', function(req, res, next){
 
 router.post('/newComment', function(req, res, next){
     var params = req.body;
-    var commenter = params.commenter;
+    var commenter = escape(params.commenter);
     var recipeId = params.recipeId;
-    var contents = params.contents;
+    var contents = escape(params.contents);
     collections.Recipe.findOne({_id:recipeId}, function(err, recipe){
         if (err) {
             res.status(500).send(err);
@@ -133,7 +133,7 @@ router.post('/newComment', function(req, res, next){
 });
 router.post('/newRating', function(req, res, next){
     var params = req.body;
-    var rater = params.rater;
+    var rater = escape(params.rater);
     var recipeId = params.recipeId;
     var rating = params.rating;
 
@@ -175,8 +175,8 @@ router.post('/newRating', function(req, res, next){
 });
 router.post('/follow', function(req, res, next){
     var params = req.body;
-    var username = params.username;
-    var objId = params.objId;
+    var username = escape(params.username);
+    var objId = escape(params.objId);
 
     collections.User.findOne({username:username}, function(err, user){
         if (err) {
@@ -215,8 +215,8 @@ router.post('/follow', function(req, res, next){
 
 router.post('/unfollow', function(req, res, next){
     var params = req.body;
-    var username = params.username;
-    var objId = params.objId;
+    var username = escape(params.username);
+    var objId = escape(params.objId);
 
     collections.User.findOne({username:username}, function(err, user){
         if (err) {
@@ -253,39 +253,6 @@ router.post('/unfollow', function(req, res, next){
     });
 });
 
-router.post('/addFriend', function(req, res, next){
-    var params = req.body;
-    var user1 = params.user1;
-    var user2 = params.user2;
-    collections.find({username: {$in: [user1, user2]}}, function(err, users){
-        if (err) {
-            res.status(500).send(err);
-        }
-        if (!user1 || !user2){
-            res.status(500).send("username not correct");
-        }
-        else{
-            users[0].friends.push(users[1].username);
-            users[1].friends.push(users[2].username);
-            users[0].save(function(err, u){
-                if (err) {
-                    res.status(500).send(err);
-                }
-                else{
-                    users[1].save(function(err, u){
-                        if (err) {
-                            res.status(500).send(err);
-                        }
-                        else{
-                            res.status(200).send("ok");
-                        }
-
-                    });
-                }
-            });
-        }
-    });
-});
 router.post('/newRecipe', function(req, res, next) {
     var params = req.body;
     var new_recipe = collections.Recipe(params);

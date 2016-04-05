@@ -16,12 +16,13 @@
         <h1>SILIFOOD.</h1>
       </div>
 
+
       <div id="container">
-        <input class="input-style" placeholder="Username"/>
-        <input class="input-style" placeholder="Password" type="password"/>
-        <a href="profile.html">
+        <form action="/login" method="post">
+          <input class="input-style" name="username" placeholder="Username"/>
+          <input class="input-style" name="password" placeholder="Password" type="password"/>
           <input id="logon" class="input-style" type="submit" value="Login"/>
-        </a>
+        </form>
       </div>
 
       <div class="modal fade" id="Modal">
@@ -32,7 +33,7 @@
               <h4>Please fill out the forms below</h4>
             </div>
             <div class="modal-body">
-              <form role="form" method="post" action="/database/newUser">
+              <form role="form" method="post" action="/signup">
                 <div class="form-group">
                   <label for="username">Username:</label>
                   <input type="text" class="form-control" id="username" name="username">
