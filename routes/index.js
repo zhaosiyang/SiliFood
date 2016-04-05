@@ -7,9 +7,9 @@ var collections = require('../dbConfig.js');
 var bcrypt = require("bcrypt");
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index');
-});
+//router.get('/', function(req, res, next) {
+//  res.render('index');
+//});
 
 router.use(passport.initialize());
 router.use(passport.session());
@@ -120,7 +120,7 @@ router.use(function(req, res, next){
             res.status(500).send(err);
         }
         else if(!c){
-            res.redirect('/');
+            res.render('index');
         }
         else{
             res.render('profile');
