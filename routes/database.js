@@ -276,7 +276,7 @@ router.post('/newRecipe', function(req, res, next) {
                     res.status(500).send(err);
                 }
                 fs.readFile(req.file.path, function (err, data) {
-                    fs.writeFile("./public/recipeImage/" + new_recipe._id + ".jpg", data, function (err) {
+                    fs.writeFile("./public/recipeImage/" + new_recipe._id, data, function (err) {
                         if(err){res.status(500).send(err);}
                         else{
                             res.send("ok");
@@ -319,7 +319,7 @@ router.post('/newUser', function(req, res, next) {
 router.post('/addProfileImage', function(req, res, next){
 
     fs.readFile(req.file.path, function (err, data) {
-        fs.writeFile("./public/profileImage/" + req.body.username + ".jpg", data, function (err) {
+        fs.writeFile("./public/profileImage/" + req.body.username, data, function (err) {
             if(err){res.status(500).send(err);}
             else{
                 res.send("ok");
