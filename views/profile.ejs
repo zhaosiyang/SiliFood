@@ -70,7 +70,12 @@
                         </div>
                         <div class="form-group">
                             <label for="steps">Steps:</label>
-                            <input type="text" class="form-control" name="steps" id="steps">
+                            <div class="addcontend">
+                              <div ng-repeat="step in steps">
+                                <input type="text" ng-model="step.value" class="form-control" name="steps" id="steps">
+                              </div>
+                            </div>
+                            <button ng-click="addStep()">Add Step</button>
                         </div>
                         <input type="hidden" class="form-control" name="owner" id="username" value="<%=username%>"/>
                         <div class="form-group">
@@ -103,9 +108,9 @@
                             <div class="ui segment" id="bioScrollable"> <!-- style="width: 100%" -->
                                 <h3 class="ui header">Change Profile Pic</h3>
                                 <form action="/database/addProfileImage" method="post" enctype="multipart/form-data">
-                                  <input type="file" name="image">
+                                  <input type="file" name="image" ng-model="imageChosen">
                                   <input type="hidden" name="username" ng-value="username">
-                                  <input type="submit">
+                                  <input type="submit" ng-disabled="!imageChosen">
                                 </form>
                             </div>
                         </div>
@@ -180,6 +185,7 @@
     										<img class="ui circular avatar image" ng-src="/profileImage/{{username}}"><span>{{ username }}</span>
     									</div>
     									<div class="ui segment" style="width : 75%">
+                        {{ username }}
     										<div class="ui input" style= "width : 100%">
                           <form role="form" method="post" action="/database/newComment">
                             <div class="form-group">
@@ -246,7 +252,7 @@
               <div class="item">
                 <!-- END SCROLL HERE -->
                 <h2 class="ui header">
-                    {{user.firstName}}'s Following
+                    {{user.firstName}} is Following
                 </h2>
                 <!-- SCROLL HERE -->
                 <div class="ui vertical segments" id="rightHandScrollable">
