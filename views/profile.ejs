@@ -4,12 +4,11 @@
     <title>SiliFood.</title>
 
     <script language="javascript" type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
-
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.11.8/semantic.min.css"/>
     <link href="search.css" type="text/css" rel="stylesheet">
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.11.8/semantic.min.css"/>
-
-
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     <script language="javascript" type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.11.8/semantic.min.js"></script>
@@ -20,14 +19,15 @@
     <script language="javascript" type="text/javascript" src="/javascripts/profile.js"></script>
 </head>
 
-<body id="main" ng-app="myApp" ng-controller="LoadProfileInformationController" ng-init="username='<%=username%>'"> <!-- ng-init takes the user who's profile page this is -->
+<!-- ng-init takes the user who's profile page this is -->
+<body id="main" ng-app="myApp" ng-controller="LoadProfileInformationController" ng-init="username='<%=username%>'">
     <!-- Top Horizontal Main Menu -->
     <div class="ui fixed inverted main menu" id="top-menu" style="background-color: rgb(50, 24, 126)">
         <a class="item">
             <i class="home icon"></i>
             SiliFood.
         </a>
-        <a class="item">
+        <a class="item" data-toggle="modal" data-target="#Modal">
             <i class="add square icon"></i>
             Create a Recipe
         </a>
@@ -39,7 +39,7 @@
             <i class="share icon"></i>
             Share a Recipe
         </a>
-        <a class="item" href="/">
+        <a class="item" href="/logout">
             <i class="sign out icon"></i>
             Sign Out
         </a>
@@ -50,6 +50,44 @@
     </div>
     <!-- End Main Menu -->
 
+    <!--Modal for new recipe -->
+    <div class="modal fade" id="Modal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4>Please fill out the forms below</h4>
+                </div>
+                <div class="modal-body">
+                    <form method="post" action="/database/newRecipe" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <label for="title">Title:</label>
+                            <input type="text" class="form-control" id="title" name="title">
+                        </div>
+                        <div class="form-group">
+                            <label for="ingredients">Ingredients:</label>
+                            <input type="text" class="form-control" name="ingredients" id="ingredients">
+                        </div>
+                        <div class="form-group">
+                            <label for="steps">Steps:</label>
+                            <input type="text" class="form-control" name="steps" id="steps">
+                        </div>
+                        <input type="hidden" class="form-control" name="owner" id="username" value="<%=username%>"/>
+                        <div class="form-group">
+                            <label for="notes">Notes:</label>
+                            <input type="text" class="form-control" name="notes" id="notes">
+                        </div>
+                        <div class="form-group">
+                            <label for="image">Picture:</label>
+                            <input type="file" class="form-control" name="image" id="image">
+                        </div>
+                        <button type="submit" class="btn btn-default">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Start Grid -->
     <div class="ui grid" id="display-grid">
         <div class="ui five wide column">
@@ -59,7 +97,7 @@
                     <div class="ui sticky">
                         <h1 class="ui header">Welcome</h1>
 
-                        <h2 id="profile-name">{{user.firstName + " " + user.lastName}}</h2>
+                        <h2 id="profile-name">{{username}}</h2>
                         <img id="profile-picture" ng-src="/userImage/{{user.username}}" height=325px width=325px></img>
                         <!-- <div id="profile-bio" class="ui segment">-->
                         <div id="profile-bio" class="column">

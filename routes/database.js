@@ -106,6 +106,29 @@ router.get('/searchRecipeByTitle', function(req, res, next){
     });
 });
 
+router.get('/recipesByUsername', function(req, res, next){
+    var username = req.query.username;
+    collections.User.findOne({username: username}, function(err, user){
+        if(err){
+            res.status(500).send(err);
+        }
+        else if(!user){
+            res.status(500).send("user not found");
+        }
+        else{
+            var recipes = user.recipes;
+            collections.Recipe.find({_id: {$in: recipes}}, function(err, recipes){
+                if (err){
+                    res.status(500).send(err);
+                }
+                else{
+                    res.json(recipes);
+                }
+            });
+        }
+    });
+});
+
 router.post('/newComment', function(req, res, next){
     var params = req.body;
     var commenter = escape(params.commenter);
@@ -276,7 +299,7 @@ router.post('/newRecipe', function(req, res, next) {
                     res.status(500).send(err);
                 }
                 fs.readFile(req.file.path, function (err, data) {
-                    fs.writeFile("./public/recipeImage/" + new_recipe._id + ".jpg", data, function (err) {
+                    fs.writeFile("./public/recipeImage/" + new_recipe._id, data, function (err) {
                         if(err){res.status(500).send(err);}
                         else{
                             res.send("ok");
@@ -315,17 +338,20 @@ router.post('/newUser', function(req, res, next) {
         }
     });
 });
-//
-//router.post('/addProfileImage', function(req, res, next){
-//    fs.readFile(req.file.path, function (err, data) {
-//        fs.writeFile("./public/profileImage/" + newUser.username + ".jpg", data, function (err) {
-//            if(err){res.status(500).send(err);}
-//            else{
-//                res.send("ok");
-//            }
-//        });
-//    });
-//});
+
+router.post('/addProfileImage', function(req, res, next){
+
+    fs.readFile(req.file.path, function (err, data) {
+        fs.writeFile("./public/profileImage/" + req.body.username, data, function (err) {
+            if(err){res.status(500).send(err);}
+            else{
+                res.send("ok");
+            }
+        });
+    });
+});
+
+
 router.post('/deleteRecipe', function(req, res, next){
     var recipeId = req.body.recipeId;
     collections.Recipe.find({_id: recipeId}, function(err, recipe){

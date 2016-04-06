@@ -5,6 +5,7 @@ var collections = require('../dbConfig');
 require('./passport.js');
 var collections = require('../dbConfig.js');
 var bcrypt = require("bcrypt");
+var auth = require("./auth.js");
 
 /* GET home page. */
 //router.get('/', function(req, res, next) {
@@ -140,6 +141,17 @@ router.get('/search', function(req, res, next){
 
 router.get('/testDB', function(req, res, next){
   res.render("testDB");
+});
+
+router.get('/logout', function(req, res, next){
+    var authCookie = req.cookies.siliFoodAuth;
+    collections.Cookie.findOne({cookie: authCookie}).remove(function(err){
+        if (err){
+            res.status(500).send(err);
+        }
+        res.cookie('siliFoodAuth', "0", {maxAge:0});
+        res.redirect('/');
+    });
 });
 
 
