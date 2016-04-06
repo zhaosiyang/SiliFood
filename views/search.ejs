@@ -90,9 +90,7 @@
 								<div class="ui segment" style="width : 35%">
 									 <img ng-src="/recipeImage/{{rec._id}}" height=100px width=100px></img>
 									<br>
-                                    <!--<div  ng-repeat='star in range(rec.averageRating)'>-->
 									    <i class="star icon" ng-repeat='star in range(rec.averageRating)'></i>
-                                    <!--</div>-->
 								</div>
 								<div class="ui segment" style="width : 65%">
 									<h3 style="color: black">
@@ -105,25 +103,25 @@
 							</div>
 							<!-- Start Steps Section -->
 							<div class="ui segment" ng-repeat='steps in rec.steps'>
-								<p>"Step " + {{$index + 1}} + ": " + steps</p>
+								<p>Step {{$index + 1}}: {{steps}}</p>
 							</div>
 							<!-- End Steps Section -->
 							<!-- Start Comments Segment -->
-							<div class="ui segment" style= "width : 100%" style="background-color: rgb(50, 24, 126)">
+							<div class="ui segment" style= "width : 100%" style="background-color: rgb(50, 24, 126)"  ng-repeat="comment in rec.comments">
 								<!-- Horizontal Segment for each Comment -->
 
 								<!-- Start Comment -->
-								<div class="ui horizontal segments" ng-repeat="(usrname, comment) in rec.comments">
+								<div class="ui horizontal segments">
 									<!-- Profile Picture and Username in one segment to keep constant sizes -->
 									<div class="ui segment" style="width : 25%">
-                    <a ng-href="/otherProfile/?username={{usrname}}">
-										<img class="ui circular avatar image" ng-src="/profileImage/{{usrname}}"><span>{{ usrname }}</span>
+                    <a ng-href="/otherProfile/?username={{comment.commenter}}">
+										<img class="ui circular avatar image" ng-src="/profileImage/{{comment.commenter}}"><span>{{ comment.commenter }}</span>
                   </a>
 									</div>
 									<!-- User Comment Text in another segment to keep constant sizes -->
 									<div class="ui segment" style="width : 75%">
 										<div class="ui input" style= "width : 100%">
-											{{ comment }}
+											{{ comment.contents }}
 										</div>
 									</div>
 								</div>
@@ -145,11 +143,12 @@
                           <button type="submit" class="btn btn-default">Submit</button>
                         </div>
                       </form>
-                      <label class="radio-inline"><input type="radio" ng-click='radioFunctionality(rec._id,1)' name="rating">1</label>
-                      <label class="radio-inline"><input type="radio" ng-click='radioFunctionality(rec._id,2)' name="rating">2</label>
-                      <label class="radio-inline"><input type="radio" ng-click='radioFunctionality(rec._id,3)' name="rating">3</label>
-                      <label class="radio-inline"><input type="radio" ng-click='radioFunctionality(rec._id,4)' name="rating">4</label>
-                      <label class="radio-inline"><input type="radio" ng-click='radioFunctionality(rec._id,5)' name="rating">5</label>
+                      <p>Rate the Recipe!</p>
+                      <label class="radio-inline"><input type="radio" ng-click='radioFunctionality(rec._id,1)' name="rating">1</input></label>
+                      <label class="radio-inline"><input type="radio" ng-click='radioFunctionality(rec._id,2)' name="rating">2</input></label>
+                      <label class="radio-inline"><input type="radio" ng-click='radioFunctionality(rec._id,3)' name="rating">3</input></label>
+                      <label class="radio-inline"><input type="radio" ng-click='radioFunctionality(rec._id,4)' name="rating">4</input></label>
+                      <label class="radio-inline"><input type="radio" ng-click='radioFunctionality(rec._id,5)' name="rating">5</input></label>
                     </div>
                   </div>
                 </div>
