@@ -19,7 +19,8 @@
     <script language="javascript" type="text/javascript" src="/javascripts/profile.js"></script>
 </head>
 
-<body id="main" ng-app="myApp" ng-controller="LoadProfileInformationController" ng-init="username='<%=username%>'"> <!-- ng-init takes the user who's profile page this is -->
+<!-- ng-init takes the user who's profile page this is -->
+<body id="main" ng-app="myApp" ng-controller="LoadProfileInformationController" ng-init="username='<%=username%>'">
     <!-- Top Horizontal Main Menu -->
     <div class="ui fixed inverted main menu" id="top-menu" style="background-color: rgb(50, 24, 126)">
         <a class="item">
@@ -185,14 +186,14 @@
                               <input type="text" class="form-control" id="newComment" name="newComment">
                               <input type="hidden" name="user" value="{{username}}">
                               <input type="hidden" name="recipe" value="{{rec._id}}">
-                            </div>
-                              <label class="radio-inline"><input type="radio" name="rating" value="1">1</input></label>
-                              <label class="radio-inline"><input type="radio" name="rating" value="2">2</input></label>
-                              <label class="radio-inline"><input type="radio" name="rating" value="3">3</input></label>
-                              <label class="radio-inline"><input type="radio" name="rating" value="4">4</input></label>
-                              <label class="radio-inline"><input type="radio" name="rating" value="5">5</input></label>
                               <button type="submit" class="btn btn-default">Submit</button>
+                            </div>
                           </form>
+                          <label class="radio-inline"><input type="radio" ng-click='radioFunctionality(1)'>1</input></label>
+                          <label class="radio-inline"><input type="radio" ng-click='radioFunctionality(2)'>2</input></label>
+                          <label class="radio-inline"><input type="radio" ng-click='radioFunctionality(3)'>3</input></label>
+                          <label class="radio-inline"><input type="radio" ng-click='radioFunctionality(4)'>4</input></label>
+                          <label class="radio-inline"><input type="radio" ng-click='radioFunctionality(5)'>5</input></label>
     										</div>
     									</div>
     								</div>
