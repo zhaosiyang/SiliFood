@@ -106,6 +106,29 @@ router.get('/searchRecipeByTitle', function(req, res, next){
     });
 });
 
+router.get('/recipesByUsername', function(req, res, next){
+    var username = req.query.username;
+    collections.User.findOne({username: username}, function(err, user){
+        if(err){
+            res.status(500).send(err);
+        }
+        else if(!user){
+            res.status(500).send("user not found");
+        }
+        else{
+            var recipes = user.recipes;
+            collections.Recipe.find({_id: {$in: recipes}}, function(err, recipes){
+                if (err){
+                    res.status(500).send(err);
+                }
+                else{
+                    res.json(recipes);
+                }
+            });
+        }
+    });
+});
+
 router.post('/newComment', function(req, res, next){
     var params = req.body;
     var commenter = escape(params.commenter);
@@ -327,6 +350,7 @@ router.post('/addProfileImage', function(req, res, next){
         });
     });
 });
+
 
 router.post('/deleteRecipe', function(req, res, next){
     var recipeId = req.body.recipeId;

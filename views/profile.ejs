@@ -60,7 +60,7 @@
                         <h1 class="ui header">Welcome</h1>
 
                         <h2 id="profile-name">{{username}}</h2>
-                        <img id="profile-picture" ng-src="/userImage/{{user.username}}" height=325px width=325px></img>
+                        <img id="profile-picture" ng-src="/profileImage/{{username}}" height=325px width=325px></img>
                         <!-- <div id="profile-bio" class="ui segment">-->
                         <div id="profile-bio" class="column">
                             <div class="ui segment" id="bioScrollable"> <!-- style="width: 100%" -->
@@ -92,13 +92,13 @@
             </div>
             <!-- End Top row -->
             <!-- Start My Recipies Column -->
-            <div class="row" ng-repeat="rec in user.recipes">
+            <div class="row" ng-repeat="rec in recipes">
     					<div class="twenty wide column">
     						<!-- Start Popup Section (Individual Recipe) -->
     						<div class="ui raised text compact piled container segment" style= "width : 100%">
     							<div class="ui horizontal segments">
     								<div class="ui segment" style="width : 35%">
-    									 <img ng-src="/recipeImage/{{rec._id}}" height=100px width=100px></img>
+    									 <!--<img ng-src="/recipeImage/{{rec._id}}" height=100px width=100px></img>-->
     									<br>
     									<i class="star icon" ng-repeat='star in range(rec.rating)'></i>
     								</div>
@@ -124,7 +124,7 @@
     								<div class="ui horizontal segments" ng-repeat="(username, comment) in rec.comments">
     									<!-- Profile Picture and Username in one segment to keep constant sizes -->
     									<div class="ui segment" style="width : 25%">
-    										<img class="ui circular avatar image" src="/userImage/{{username}}"><span>{{ username }}</span>
+    										<img class="ui circular avatar image" ng-src="/profileImage/{{username}}"><span>{{ username }}</span>
     									</div>
     									<!-- User Comment Text in another segment to keep constant sizes -->
     									<div class="ui segment" style="width : 75%">
@@ -139,7 +139,7 @@
                       <h5>Comment and Rate!</h5>
     									<!-- Profile Picture and Username in one segment to keep constant sizes -->
     									<div class="ui segment" style="width : 25%">
-    										<img class="ui circular avatar image" src="/userImage/{{username}}"><span>{{ username }}</span>
+    										<img class="ui circular avatar image" ng-src="/profileImage/{{username}}"><span>{{ username }}</span>
     									</div>
     									<div class="ui segment" style="width : 75%">
     										<div class="ui input" style= "width : 100%">
@@ -189,7 +189,7 @@
 
                               <!-- put link on picture to be able to visit followers profile -->
                                 <!-- <a ng-href="/{{ follower.profile }}"> -->
-                                  <img class="ui circular avatar image" ng-src='/recipeImage/{{follower.username}}'>
+                                  <img class="ui circular avatar image" ng-src='/profileImage/{{follower.username}}'>
                                 <!-- </a> -->
 
                             </div>
@@ -209,15 +209,15 @@
                 </h2>
                 <!-- SCROLL HERE -->
                 <div class="ui vertical segments" id="rightHandScrollable">
-                    <div class="ui horizontal segments" ng-repeat="follower in user.followings">
+                    <div class="ui horizontal segments" ng-repeat="following in user.followings">
                         <!-- Profile Picture and Username in one segment to keep constant sizes -->
                         <div class="ui segment" style="width : 25%">
-                            <img class="ui circular avatar image" src="/images/wireframe/square-image.png">
+                            <!--<img class="ui circular avatar image" src="/images/wireframe/square-image.png">-->
                         </div>
                         <!-- User Comment Text in another segment to keep constant sizes -->
                         <div class="ui segment" style="width : 75%">
                             <div class="ui input" style= "width : 100%">
-                                {{follower.username}}
+                                {{following.username}}
                             </div>
                         </div>
                     </div>
