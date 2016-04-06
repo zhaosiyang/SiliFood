@@ -131,25 +131,27 @@ router.get('/recipesByUsername', function(req, res, next){
 
 router.post('/newComment', function(req, res, next){
     var params = req.body;
+    console.log(params);
     var commenter = escape(params.commenter);
     var recipeId = params.recipeId;
     var contents = escape(params.contents);
     collections.Recipe.findOne({_id:recipeId}, function(err, recipe){
         if (err) {
             res.status(500).send(err);
+            return;
         }
-        recipe.comments.push({
-            commenter: commenter,
-            contents: contents,
-            createdAt: new Date()
-        });
+        if(!recipe){
+            res.status(500).send("recipe not found");
+            return;
+        }
+        recipe.comments[commenter] = contents;
         recipe.markModified('comments');
         recipe.save(function(err){
             if (err) {
                 res.status(500).send(err);
             }
             else{
-                res.status(200).send("ok");
+                res.redirect('/');
             }
         });
     });
@@ -303,7 +305,7 @@ router.post('/newRecipe', function(req, res, next) {
                         fs.writeFile("./public/recipeImage/" + new_recipe._id, data, function (err) {
                             if(err){res.status(500).send(err);}
                             else{
-                                res.send("ok");
+                                res.redirect('/');
                             }
                         });
                     });
@@ -349,7 +351,7 @@ router.post('/addProfileImage', function(req, res, next){
         fs.writeFile("./public/profileImage/" + req.body.username, data, function (err) {
             if(err){res.status(500).send(err);}
             else{
-                res.send("ok");
+                res.redirect('/');
             }
         });
     });

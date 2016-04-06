@@ -162,7 +162,7 @@
     								<div class="ui horizontal segments" ng-repeat="(username, comment) in rec.comments">
     									<!-- Profile Picture and Username in one segment to keep constant sizes -->
     									<div class="ui segment" style="width : 25%">
-    										<img class="ui circular avatar image" src="/profileImage/{{username}}"><span>{{ username }}</span>
+    										<img class="ui circular avatar image" ng-src="/profileImage/{{username}}"><span>{{ username }}</span>
     									</div>
     									<!-- User Comment Text in another segment to keep constant sizes -->
     									<div class="ui segment" style="width : 75%">
@@ -183,9 +183,9 @@
     										<div class="ui input" style= "width : 100%">
                           <form role="form" method="post" action="/database/newComment">
                             <div class="form-group">
-                              <input type="text" class="form-control" id="newComment" name="newComment">
-                              <input type="hidden" name="user" value="{{username}}">
-                              <input type="hidden" name="recipe" value="{{rec._id}}">
+                              <input type="text" class="form-control" id="newComment" name="contents">
+                              <input type="hidden" name="commenter" ng-value="username">
+                              <input type="hidden" name="recipeId" ng-value="rec._id">
                               <button type="submit" class="btn btn-default">Submit</button>
                             </div>
                           </form>
