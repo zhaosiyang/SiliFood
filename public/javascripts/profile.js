@@ -1,10 +1,7 @@
 var app = angular.module('myApp', []);
 
 app.controller('LoadProfileInformationController', ['$scope', '$http', function($scope, $http){
-    $scope.testUser = {};
-    $scope.testUser.fullName = "Peter Brooks";
-    $scope.testUser.bio = "I like turtles and puppies and cupcakes and tigers and cats and chocolate and pineapple and turtles and otters and yoyos and milkshakes and milklessshakes";
-    
+
     $http.get('/userById?username='+ $scope.username).
         success(function(data, status, headers, config) {
             console.log(data);
@@ -13,11 +10,21 @@ app.controller('LoadProfileInformationController', ['$scope', '$http', function(
         error(function(data, status, headers, config) {
             console.log(data);
         });
+
+    $scope.range = function(recipeRating) {
+
+      var ratings = [];
+      for (i = 0; i < recipeRating; i++) {
+        rating.push(i + 1);
+      }
+      return i;
+    };
+
 }]);
 
 /*Not done yet, so don't worry that it's not working*/
 app.controller('userToFollowTag', ['$scope', '$http', function($scope, $http, userName){
-    
+
     $http.get('/userById?username=' + userName).
         success(function(data, status, headers, config) {
                 console.log(data);
@@ -25,6 +32,6 @@ app.controller('userToFollowTag', ['$scope', '$http', function($scope, $http, us
             }).
             error(function(data, status, headers, config) {
                 console.log(data);
-            });    
-    
+            });
+
 }]);
