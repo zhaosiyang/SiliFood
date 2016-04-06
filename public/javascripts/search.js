@@ -26,11 +26,12 @@ function($scope, $http) {
 
   $scope.range = function(recipeRating) {
 
-    var ratings = [];
-    for (i = 0; i < recipeRating; i++) {
+    var rating = [];
+    console.log(recipeRating);
+    for (var i = 0; i < recipeRating; i++) {
       rating.push(i);
     }
-    return i;
+    return rating;
   };
 
     $http.get('/database/recipeOrderByRating?number=3').success(function (data, status, headers, config) {

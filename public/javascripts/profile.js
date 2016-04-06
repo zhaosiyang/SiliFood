@@ -39,7 +39,7 @@ app.controller('LoadProfileInformationController', ['$scope', '$http', function(
     });
 
     $scope.radioFunctionality = function(recipe, rating) {
-      $http.post('/database/newRating', $scope.username, recipe, rating).
+      $http.post('/database/newRating', {rater: $scope.username, recipeId: recipe, rating:rating}).
           success(function(data, status, headers, config) {
               console.log(data);
               $scope.user = data; /* data is the user object by schema */

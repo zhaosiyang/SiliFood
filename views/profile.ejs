@@ -6,7 +6,7 @@
     <script language="javascript" type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.11.8/semantic.min.css"/>
-    <link href="search.css" type="text/css" rel="stylesheet">
+    <link href="/stylesheets/search.css" type="text/css" rel="stylesheet">
 
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     <script language="javascript" type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
@@ -97,9 +97,8 @@
                     <div class="ui sticky">
                         <h1 class="ui header">Welcome</h1>
 
-                        <h2 id="profile-name">{{username}}</h2>
+                        <h2 id="profile-name">{{user.firstName + user.lastName}}</h2>
                         <img id="profile-picture" ng-src="/profileImage/{{user.username}}" height=325px width=325px></img>
-                        <!-- <div id="profile-bio" class="ui segment">-->
                         <div id="profile-bio" class="column">
                             <div class="ui segment" id="bioScrollable"> <!-- style="width: 100%" -->
                                 <h3 class="ui header">Change Profile Pic</h3>
@@ -108,7 +107,6 @@
                                   <input type="hidden" name="username" ng-value="username">
                                   <input type="submit">
                                 </form>
-                                <!-- <p>{{user.bio}}</p> -->
                             </div>
                         </div>
                     </div>
@@ -124,7 +122,7 @@
             <div class="row">
                 <div class="twenty wide column">
                     <a class="item">
-                        <h2 class="ui header">My Recipies</h2>
+                        <h2 class="ui header">My Recipes</h2>
                     </a>
                 </div>
             </div>
@@ -151,7 +149,7 @@
     							</div>
     							<!-- Start Steps Section -->
     							<div class="ui segment" ng-repeat='steps in rec.steps'>
-    								<p>{{ "Step " + $index + ": " + steps }}</p>
+    								<p>"Step " + {{$index + 1}} + ": " + steps</p>
     							</div>
     							<!-- End Steps Section -->
     							<!-- Start Comments Segment -->
@@ -177,7 +175,7 @@
                       <h5>Comment and Rate!</h5>
     									<!-- Profile Picture and Username in one segment to keep constant sizes -->
     									<div class="ui segment" style="width : 25%">
-    										<img class="ui circular avatar image" src="/profileImage/{{username}}"><span>{{ username }}</span>
+    										<img class="ui circular avatar image" ng-src="/profileImage/{{username}}"><span>{{ username }}</span>
     									</div>
     									<div class="ui segment" style="width : 75%">
     										<div class="ui input" style= "width : 100%">
@@ -189,11 +187,11 @@
                               <button type="submit" class="btn btn-default">Submit</button>
                             </div>
                           </form>
-                          <label class="radio-inline"><input type="radio" ng-click='radioFunctionality(1)' name="rating">1</input></label>
-                          <label class="radio-inline"><input type="radio" ng-click='radioFunctionality(2)' name="rating">2</input></label>
-                          <label class="radio-inline"><input type="radio" ng-click='radioFunctionality(3)' name="rating">3</input></label>
-                          <label class="radio-inline"><input type="radio" ng-click='radioFunctionality(4)' name="rating">4</input></label>
-                          <label class="radio-inline"><input type="radio" ng-click='radioFunctionality(5)' name="rating">5</input></label>
+                          <label class="radio-inline"><input type="radio" ng-click='radioFunctionality(rec._id,1)' name="rating">1</input></label>
+                          <label class="radio-inline"><input type="radio" ng-click='radioFunctionality(rec._id,1)' name="rating">2</input></label>
+                          <label class="radio-inline"><input type="radio" ng-click='radioFunctionality(rec._id,1)' name="rating">3</input></label>
+                          <label class="radio-inline"><input type="radio" ng-click='radioFunctionality(rec._id,1)' name="rating">4</input></label>
+                          <label class="radio-inline"><input type="radio" ng-click='radioFunctionality(rec._id,1)' name="rating">5</input></label>
     										</div>
     									</div>
     								</div>
@@ -211,7 +209,7 @@
             <br/><br/>
             <div class="item">
                 <h2 class="ui header">
-                    Followers
+                    {{user.firstName}}'s Followers
                 </h2>
                 <!-- SCROLL HERE (Scrollable results for followers) -->
                 <div class="ui vertical segments" id="rightHandScrollable" ng-repeat="follower in user.followers">
@@ -226,9 +224,9 @@
                             <div class="ui segment" style="width : 25%">
 
                               <!-- put link on picture to be able to visit followers profile -->
-                                <!-- <a ng-href="/{{ follower.profile }}"> -->
-                                  <img class="ui circular avatar image" ng-src='/recipeImage/{{follower.username}}'>
-                                <!-- </a> -->
+                                <a ng-href="/otherProfile/?username={{ follower.username }}">
+                                  <img class="ui circular avatar image" ng-src='/profileImage/{{follower.username}}'>
+                                </a>
 
                             </div>
                             <!-- User Comment Text in another segment to keep constant sizes -->
@@ -241,21 +239,25 @@
 
                     <!-- </div> -->
                 </div>
+              </div>
+              <div class="item">
                 <!-- END SCROLL HERE -->
                 <h2 class="ui header">
-                    Following
+                    {{user.firstName}}'s Following
                 </h2>
                 <!-- SCROLL HERE -->
                 <div class="ui vertical segments" id="rightHandScrollable">
-                    <div class="ui horizontal segments" ng-repeat="follower in user.followings">
+                    <div class="ui horizontal segments" ng-repeat="following in user.followings">
                         <!-- Profile Picture and Username in one segment to keep constant sizes -->
                         <div class="ui segment" style="width : 25%">
-                            <img class="ui circular avatar image" src="/images/wireframe/square-image.png">
+                          <a ng-href="/otherProfile/?username={{ following.username }}">
+                            <img class="ui circular avatar image" ng-src='/profileImage/{{following.username}}'>
+                          </a>
                         </div>
                         <!-- User Comment Text in another segment to keep constant sizes -->
                         <div class="ui segment" style="width : 75%">
                             <div class="ui input" style= "width : 100%">
-                                {{follower.username}}
+                                {{following.firstName + following.lastName}}
                             </div>
                         </div>
                     </div>

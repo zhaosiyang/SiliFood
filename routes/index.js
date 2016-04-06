@@ -135,6 +135,11 @@ router.get('/', function(req, res, next){
     res.render('profile', {username: req.username});
 });
 
+router.get('/otherProfile', function(req, res, next){
+    var username = req.query.username;
+    self.render('otherProfile', {username: username});
+});
+
 router.get('/search', function(req, res, next){
     res.render('search', {username:req.username});
 });
