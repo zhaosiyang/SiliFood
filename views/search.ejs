@@ -62,7 +62,7 @@
                 <div class="ui segment" id="ad-display" style="position: fixed">
                     <div class="ui sticky">
                         <h3 class="ui header">Buy some crap you don't need!</h3>
-                        <img src="" alt="Your Ad Here"></img>
+                        <img src="" alt="Some Advertisement"></img>
                     </div>
                 </div>
                 <!-- End Left Side Menu -->
@@ -105,7 +105,7 @@
 							</div>
 							<!-- Start Steps Section -->
 							<div class="ui segment" ng-repeat='steps in rec.steps'>
-								<p>{{ "Step " + $index + ": " + steps }}</p>
+								<p>"Step " + {{$index + 1}} + ": " + steps</p>
 							</div>
 							<!-- End Steps Section -->
 							<!-- Start Comments Segment -->
@@ -116,7 +116,9 @@
 								<div class="ui horizontal segments" ng-repeat="(usrname, comment) in rec.comments">
 									<!-- Profile Picture and Username in one segment to keep constant sizes -->
 									<div class="ui segment" style="width : 25%">
+                    <a ng-href="/otherProfile/?username={{usrname}}">
 										<img class="ui circular avatar image" ng-src="/profileImage/{{usrname}}"><span>{{ usrname }}</span>
+                  </a>
 									</div>
 									<!-- User Comment Text in another segment to keep constant sizes -->
 									<div class="ui segment" style="width : 75%">
@@ -127,17 +129,30 @@
 								</div>
 								<!-- End Comment -->
 								<!-- Start Comment -->
-								<div class="ui horizontal segments">
-									<!-- Profile Picture and Username in one segment to keep constant sizes -->
-									<div class="ui segment" style="width : 25%">
-										<img class="ui circular avatar image" src="/profileImage/{{username}}"><span>{{ username }}</span>
-									</div>
-									<div class="ui segment" style="width : 75%">
-										<div class="ui input" style= "width : 100%">
-											<input type="text" placeholder="Comment..." />
-										</div>
-									</div>
-								</div>
+                <div class="ui horizontal segments">
+                  <h5>Comment and Rate!</h5>
+                  <!-- Profile Picture and Username in one segment to keep constant sizes -->
+                  <div class="ui segment" style="width : 25%">
+                    <img class="ui circular avatar image" ng-src="/profileImage/{{username}}"><span>{{ username }}</span>
+                  </div>
+                  <div class="ui segment" style="width : 75%">
+                    <div class="ui input" style= "width : 100%">
+                      <form role="form" method="post" action="/database/newComment">
+                        <div class="form-group">
+                          <input type="text" class="form-control" id="newComment" name="contents">
+                          <input type="hidden" name="commenter" ng-value="username">
+                          <input type="hidden" name="recipeId" ng-value="rec._id">
+                          <button type="submit" class="btn btn-default">Submit</button>
+                        </div>
+                      </form>
+                      <label class="radio-inline"><input type="radio" ng-click='radioFunctionality(rec._id,1)' name="rating">1</input></label>
+                      <label class="radio-inline"><input type="radio" ng-click='radioFunctionality(rec._id,1)' name="rating">2</input></label>
+                      <label class="radio-inline"><input type="radio" ng-click='radioFunctionality(rec._id,1)' name="rating">3</input></label>
+                      <label class="radio-inline"><input type="radio" ng-click='radioFunctionality(rec._id,1)' name="rating">4</input></label>
+                      <label class="radio-inline"><input type="radio" ng-click='radioFunctionality(rec._id,1)' name="rating">5</input></label>
+                    </div>
+                  </div>
+                </div>
 								<!-- End Comment -->
 							</div>
 							<!-- End Comments Segment -->
@@ -156,7 +171,14 @@
 
             </div>
             <div class="row" ng-repeat="trend in trending">
-                {{ "Title: " + trend.title }}
+              <a ng-href="/otherProfile/?username={{trend.owner}}">
+                <img ng-src="/profileImage/{{trend.owner}}" height=100px width=100px></img>
+              </a>
+              <a ng-href="/otherProfile/?username={{trend.owner}}">
+              {{trend.owner}}
+            </a>
+              <br/>
+              <h5>{{trend.title}}</h5>
             </div>
         </div>
     </div>
