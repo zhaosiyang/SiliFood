@@ -5,6 +5,7 @@ var collections = require('../dbConfig');
 require('./passport.js');
 var collections = require('../dbConfig.js');
 var bcrypt = require("bcrypt");
+var auth = require("./auth.js");
 
 /* GET home page. */
 //router.get('/', function(req, res, next) {
