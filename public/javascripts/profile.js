@@ -47,7 +47,7 @@ app.controller('LoadProfileInformationController', ['$scope', '$http', function(
           error(function(data, status, headers, config) {
               console.log(data);
           });
-    }
+    };
 
 }]);
 

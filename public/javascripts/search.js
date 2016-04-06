@@ -31,6 +31,7 @@ function($scope, $http) {
     for (var i = 0; i < recipeRating; i++) {
       rating.push(i);
     }
+    console.log(rating);
     return rating;
   };
 
@@ -41,6 +42,17 @@ function($scope, $http) {
       console.log('failed');
       $scope.trending = [];
     });
+
+  $scope.radioFunctionality = function(recipe, rating) {
+    $http.post('/database/newRating', {rater: $scope.username, recipeId: recipe, rating:rating}).
+    success(function(data, status, headers, config) {
+      console.log(data);
+      $scope.user = data; /* data is the user object by schema */
+    }).
+    error(function(data, status, headers, config) {
+      console.log(data);
+    });
+  };
 
 
 

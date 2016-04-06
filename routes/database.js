@@ -131,7 +131,6 @@ router.get('/recipesByUsername', function(req, res, next){
 
 router.post('/newComment', function(req, res, next){
     var params = req.body;
-    console.log(params);
     var commenter = escape(params.commenter);
     var recipeId = params.recipeId;
     var contents = escape(params.contents);
@@ -144,7 +143,11 @@ router.post('/newComment', function(req, res, next){
             res.status(500).send("recipe not found");
             return;
         }
-        recipe.comments[commenter] = contents;
+        recipe.comments.push({
+            commenter: commenter,
+            contents: contents,
+            createdAt: new Date()
+        });
         recipe.markModified('comments');
         recipe.save(function(err){
             if (err) {
@@ -161,6 +164,7 @@ router.post('/newRating', function(req, res, next){
     var rater = escape(params.rater);
     var recipeId = params.recipeId;
     var rating = params.rating;
+    console.log(params);
 
     if(rating!='1' && rating!='2' && rating!='3' && rating!='4' && rating!='5'){
         res.status(500).send("rating not correct");
@@ -185,6 +189,7 @@ router.post('/newRating', function(req, res, next){
             recipe.averageRating = sum / ratingNumber;
 
             recipe.markModified('ratings');
+            recipe.markModified('averageRating');
             recipe.save(function(err, r, numAffected){
                 if (err) {
                     res.status(500).send(err);
@@ -200,81 +205,107 @@ router.post('/newRating', function(req, res, next){
 });
 router.post('/follow', function(req, res, next){
     var params = req.body;
-    var username = escape(params.username);
+    //var username = escape(params.username);
     var objId = escape(params.objId);
 
-    collections.User.findOne({username:username}, function(err, user){
-        if (err) {
-            res.status(500).send(err);
-            return;
-        }
-        if(!user){
-            res.status(500).send("not valid username");
-            return;
-        }
-        user.followings.push(objId);
-        user.save(function(err, u){
-            if (err) {
-                res.status(500).send(err);
-                return;
-            }
+    var authCookie = req.cookies.siliFoodAuth;
 
-            collections.User.findOne({username: objId}, function(err, obj){
+    collections.Cookie.findOne({cookie: authCookie}, function(err, c){
+        if(err){
+            res.status(500).send(err);
+        }
+        else if(!c){
+            res.status.send("session expired");
+        }
+        else{
+            var username = c.username;
+            collections.User.findOne({username:username}, function(err, user){
                 if (err) {
                     res.status(500).send(err);
                     return;
                 }
-                obj.followers.push(username);
-                obj.save(function(err, o){
+                if(!user){
+                    res.status(500).send("not valid username");
+                    return;
+                }
+                user.followings.push(objId);
+                user.save(function(err, u){
                     if (err) {
                         res.status(500).send(err);
                         return;
                     }
-                    res.status(200).send("ok");
+
+                    collections.User.findOne({username: objId}, function(err, obj){
+                        if (err) {
+                            res.status(500).send(err);
+                            return;
+                        }
+                        obj.followers.push(username);
+                        obj.save(function(err, o){
+                            if (err) {
+                                res.status(500).send(err);
+                                return;
+                            }
+                            res.status(200).send("ok");
+                        });
+                    });
+
                 });
             });
-
-        });
+        };
     });
 });
 
 router.post('/unfollow', function(req, res, next){
     var params = req.body;
-    var username = escape(params.username);
+    //var username = escape(params.username);
     var objId = escape(params.objId);
 
-    collections.User.findOne({username:username}, function(err, user){
+    collections.Cookie.findOne({cookie: authCookie}, function(err, c) {
         if (err) {
             res.status(500).send(err);
-            return;
         }
-        if(!user){
-            res.status(500).send("not valid username");
-            return;
+        else if (!c) {
+            res.status.send("session expired");
         }
-        user.followings.splice(user.followings.indexOf(objId),1);
-        user.markModified('followings');
-        user.save(function(err, u){
-            if (err) {
-                res.status(500).send(err);
-                return;
-            }
-            collections.User.findOne({username: objId}, function(err, obj){
+        else {
+            var username = c.username;
+            collections.User.findOne({username:username}, function(err, user){
                 if (err) {
                     res.status(500).send(err);
                     return;
                 }
-                obj.followers.splice(user.followers.indexOf(username) ,1);
-                obj.markModified('followers');
-                obj.save(function(err){
+                if(!user){
+                    res.status(500).send("not valid username");
+                    return;
+                }
+                user.followings.splice(user.followings.indexOf(objId),1);
+                user.markModified('followings');
+                user.save(function(err, u){
                     if (err) {
                         res.status(500).send(err);
                         return;
                     }
-                    res.status(200).send("ok");
+                    collections.User.findOne({username: objId}, function(err, obj){
+                        if (err) {
+                            res.status(500).send(err);
+                            return;
+                        }
+                        obj.followers.splice(user.followers.indexOf(username) ,1);
+                        obj.markModified('followers');
+                        obj.save(function(err){
+                            if (err) {
+                                res.status(500).send(err);
+                                return;
+                            }
+                            res.status(200).send("ok");
+                        });
+                    });
                 });
             });
-        });
+
+
+        }
     });
 });
 
@@ -357,7 +388,6 @@ router.post('/addProfileImage', function(req, res, next){
     });
 });
 
-
 router.post('/deleteRecipe', function(req, res, next){
     var recipeId = req.body.recipeId;
     collections.Recipe.find({_id: recipeId}, function(err, recipe){
@@ -399,6 +429,37 @@ router.post('/deleteRecipe', function(req, res, next){
             });
         }
     });
+});
+
+router.post('/changePassword', function(req, res, next){
+    var password = req.body.password;
+    var username = req.body.username;
+    collections.findOne({username: username}, function(err, user){
+        if(err){
+            res.status(500).send(err);
+        }
+        else if (!user){
+            res.status(500).send("no user found");
+        }
+        else{
+            bcrypt.genSalt(10, function(err, salt){
+                bcrypt.hash(password, salt, function(err, hash){
+                    password = hash;
+                    user.password = password;
+                    user.markModified('password');
+                    user.save(function(err){
+                        if(err){
+                            res.status(500).send(err);
+                        }
+                        else{
+                            res.send('ok');
+                        }
+                    });
+                });
+            });
+        }
+    });
+
 });
 
 module.exports = router;

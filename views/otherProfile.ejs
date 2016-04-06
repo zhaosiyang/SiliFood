@@ -102,14 +102,14 @@
                               <h3 class="ui header">Follow {{user.firstName + user.lastName}}</h3>
                               <form action="/database/follow" method="post">
                                 <input type="hidden" name="objId" ng-value="user.username">
-                                <input type="submit">
+                                <input type="submit" value="follow">
                               </form>
                             </div>
                             <div class="ui segment" id="bioScrollable"> <!-- style="width: 100%" -->
                               <h3 class="ui header">Stop Following {{user.firstName + user.lastName}}</h3>
                               <form action="/database/unfollow" method="post">
                                 <input type="hidden" name="objId" ng-value="user.username">
-                                <input type="submit">
+                                <input type="submit" value="unfollow">
                               </form>
                             </div>
                         </div>
@@ -257,7 +257,7 @@
                     <div class="ui horizontal segments" ng-repeat="following in user.followings">
                         <!-- Profile Picture and Username in one segment to keep constant sizes -->
                         <div class="ui segment" style="width : 25%">
-                          <a ng-href="/otherProfile/?username={{ follower}}">
+                          <a ng-href="/otherProfile/?username={{ following}}">
                             <img class="ui circular avatar image" ng-src='/profileImage/{{following}}'>
                           </a>
                         </div>
