@@ -5,7 +5,6 @@ var collections = require('../dbConfig');
 require('./passport.js');
 var collections = require('../dbConfig.js');
 var bcrypt = require("bcrypt");
-var auth = require("./auth.js");
 
 /* GET home page. */
 //router.get('/', function(req, res, next) {
@@ -101,6 +100,7 @@ router.get('/auth/facebook/callback',
             }else{
                 var newCookie = new collections.Cookie();
                 newCookie.cookie = result;
+                newCookie.username = req.user.username;
                 newCookie.save(function(err){
                     if (err){
                         res.status(500).send(err);
