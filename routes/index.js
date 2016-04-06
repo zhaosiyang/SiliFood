@@ -142,5 +142,16 @@ router.get('/testDB', function(req, res, next){
   res.render("testDB");
 });
 
+router.get('/logout', function(req, res, next){
+    var authCookie = req.cookies.siliFoodAuth;
+    collections.Cookie.findOne({cookie: authCookie}).remove(function(err){
+        if (err){
+            res.status(500).send(err);
+        }
+        res.cookie('siliFoodAuth', "0", {maxAge:0});
+        res.redirect('/');
+    });
+});
+
 
 module.exports = router;
