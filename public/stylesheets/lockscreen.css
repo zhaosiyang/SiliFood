@@ -29,6 +29,10 @@ body {
   text-align: center;
 }
 
+#options a{
+    width: 100%;
+}
+
 #options{
     position: fixed;
     z-index: 100;
