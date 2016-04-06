@@ -90,9 +90,9 @@
 								<div class="ui segment" style="width : 35%">
 									 <img ng-src="/recipeImage/{{rec._id}}" height=100px width=100px></img>
 									<br>
-                                    <div  ng-repeat='star in range(rec.averageRating)'>
-									    <i class="star icon"></i>
-                                    </div>
+                                    <!--<div  ng-repeat='star in range(rec.averageRating)'>-->
+									    <i class="star icon" ng-repeat='star in range(rec.averageRating)'></i>
+                                    <!--</div>-->
 								</div>
 								<div class="ui segment" style="width : 65%">
 									<h3 style="color: black">
@@ -145,11 +145,11 @@
                           <button type="submit" class="btn btn-default">Submit</button>
                         </div>
                       </form>
-                      <label class="radio-inline"><input type="radio" ng-click='radioFunctionality(rec._id,1)' name="rating">1</input></label>
-                      <label class="radio-inline"><input type="radio" ng-click='radioFunctionality(rec._id,1)' name="rating">2</input></label>
-                      <label class="radio-inline"><input type="radio" ng-click='radioFunctionality(rec._id,1)' name="rating">3</input></label>
-                      <label class="radio-inline"><input type="radio" ng-click='radioFunctionality(rec._id,1)' name="rating">4</input></label>
-                      <label class="radio-inline"><input type="radio" ng-click='radioFunctionality(rec._id,1)' name="rating">5</input></label>
+                      <label class="radio-inline"><input type="radio" ng-click='radioFunctionality(rec._id,1)' name="rating">1</label>
+                      <label class="radio-inline"><input type="radio" ng-click='radioFunctionality(rec._id,2)' name="rating">2</label>
+                      <label class="radio-inline"><input type="radio" ng-click='radioFunctionality(rec._id,3)' name="rating">3</label>
+                      <label class="radio-inline"><input type="radio" ng-click='radioFunctionality(rec._id,4)' name="rating">4</label>
+                      <label class="radio-inline"><input type="radio" ng-click='radioFunctionality(rec._id,5)' name="rating">5</label>
                     </div>
                   </div>
                 </div>

@@ -29,7 +29,7 @@ db.once('open', function() {
         notes: String,
         ratings: {type: mongoose.Schema.Types.Mixed, default: {}},
         averageRating: {type: Number, default: 0},
-        comments:{type:mongoose.Schema.Types.Mixed, default: {}},
+        comments:{type:[mongoose.Schema.Types.Mixed], default: []},
         createdAt: {type: Date, default: Date.now}
     });
 

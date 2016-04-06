@@ -60,7 +60,8 @@ router.post('/login', function(req, res, next) {
             res.send(err);
         }
         if (!user) {
-            res.status(401).send("username not found");
+            res.render("index", {value:"block"});
+            console.log('block');
         }
         else {
             var hashedPassword = user.password;
@@ -121,7 +122,7 @@ router.use(function(req, res, next){
             res.status(500).send(err);
         }
         else if(!c){
-            res.render('index');
+            res.render('index',{value: "none"});
         }
         else{
             //res.render('profile', {username: c.username});
@@ -136,8 +137,26 @@ router.get('/', function(req, res, next){
 });
 
 router.get('/otherProfile', function(req, res, next){
-    var username = req.query.username;
-    self.render('otherProfile', {username: username});
+    var authCookie = req.cookies.siliFoodAuth;
+    collections.Cookie.findOne({cookie: authCookie}, function(err, c){
+        if(err){
+            res.status(500).send(err);
+        }
+        else if(!c){
+            res.status(500).send("session expired");
+        }
+        else{
+            var current_username = c.username;
+            var username = req.query.username;
+            if (current_username === username){
+                res.redirect('/');
+            }
+            else{
+                res.render('otherProfile', {username: username});
+            }
+        }
+    });
+
 });
 
 router.get('/search', function(req, res, next){

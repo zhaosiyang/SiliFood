@@ -149,7 +149,7 @@
     							</div>
     							<!-- Start Steps Section -->
     							<div class="ui segment" ng-repeat='steps in rec.steps'>
-    								<p>"Step " + {{$index + 1}} + ": " + steps</p>
+    								<p>Step {{$index + 1}}: {{steps}}</p>
     							</div>
     							<!-- End Steps Section -->
     							<!-- Start Comments Segment -->
@@ -224,15 +224,15 @@
                             <div class="ui segment" style="width : 25%">
 
                               <!-- put link on picture to be able to visit followers profile -->
-                                <a ng-href="/otherProfile/?username={{ follower.username }}">
-                                  <img class="ui circular avatar image" ng-src='/profileImage/{{follower.username}}'>
+                                <a ng-href="/otherProfile/?username={{ follower }}">
+                                  <img class="ui circular avatar image" ng-src='/profileImage/{{follower}}'>
                                 </a>
 
                             </div>
                             <!-- User Comment Text in another segment to keep constant sizes -->
                             <div class="ui segment" style="width : 75%">
                                 <div class="ui input" style= "width : 100%">
-                                    <p>{{follower.firstName + " " + follower.lastName}}</p>
+                                    <p>{{follower}}</p>
                                 </div>
                             </div>
                         </div>
@@ -250,14 +250,14 @@
                     <div class="ui horizontal segments" ng-repeat="following in user.followings">
                         <!-- Profile Picture and Username in one segment to keep constant sizes -->
                         <div class="ui segment" style="width : 25%">
-                          <a ng-href="/otherProfile/?username={{ following.username }}">
-                            <img class="ui circular avatar image" ng-src='/profileImage/{{following.username}}'>
+                          <a ng-href="/otherProfile/?username={{ following }}">
+                            <img class="ui circular avatar image" ng-src='/profileImage/{{following}}'>
                           </a>
                         </div>
                         <!-- User Comment Text in another segment to keep constant sizes -->
                         <div class="ui segment" style="width : 75%">
                             <div class="ui input" style= "width : 100%">
-                                {{following.firstName + following.lastName}}
+                                {{following}}
                             </div>
                         </div>
                     </div>
