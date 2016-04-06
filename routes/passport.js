@@ -34,7 +34,6 @@ passport.use(new FacebookStrategy({
                     newU.firstName = profile._json.first_name;
                     newU.lastName = profile._json.last_name;
                     newU.authSource = "facebook";
-                    console.log(newU);
                     newU.save(function(err){
                         if (err){
                             return cb(err);
