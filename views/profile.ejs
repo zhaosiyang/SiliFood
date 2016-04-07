@@ -62,7 +62,7 @@
                     <form method="post" action="/database/newRecipe" enctype="multipart/form-data">
                         <div class="form-group">
                             <label for="title">Title:</label>
-                            <input type="text" class="form-control" id="title" name="title">
+                            <input type="text" class="form-control" id="title" name="title" ng-model="titleToSubmit">
                         </div>
                         <div class="form-group">
                             <label for="ingredients">Ingredients:</label>
@@ -70,18 +70,18 @@
                         </div>
                         <div class="form-group">
                             <label for="steps">Steps:</label>
-                            <input type="text" class="form-control" name="steps" id="steps">
+                                <input type="text" name="steps" class="form-control" id="steps">
                         </div>
                         <input type="hidden" class="form-control" name="owner" id="username" value="<%=username%>"/>
                         <div class="form-group">
                             <label for="notes">Notes:</label>
-                            <input type="text" class="form-control" name="notes" id="notes">
+                            <input type="text" class="form-control" name="notes" id="notes" ng-model="notesToSubmit">
                         </div>
                         <div class="form-group">
                             <label for="image">Picture:</label>
                             <input type="file" class="form-control" name="image" id="image">
                         </div>
-                        <button type="submit" class="btn btn-default">Submit</button>
+                            <input type="submit">
                     </form>
                 </div>
             </div>
@@ -102,10 +102,13 @@
                         <div id="profile-bio" class="column">
                             <div class="ui segment" id="bioScrollable"> <!-- style="width: 100%" -->
                                 <h3 class="ui header">Change Profile Pic</h3>
+
                                 <form action="/database/addProfileImage" method="post" enctype="multipart/form-data" name="addProfileImageForm">
-                                  <input type="file" name="image" onchange="angular.element(this).scope().fileChosen = true">
+                                  <input type="file" name="image" onchange="angular.element(this).scope().changeChosen()">
+
+
                                   <input type="hidden" name="username" ng-value="username">
-                                  <input type="submit" ng-disabled="!fileChosen">
+                                  <input type="submit" ng-disabled="{{!fileChosen}}">
                                 </form>
                             </div>
                         </div>
@@ -182,6 +185,7 @@
     										<img class="ui circular avatar image" ng-src="/profileImage/{{username}}"><span>{{ username }}</span>
     									</div>
     									<div class="ui segment" style="width : 75%">
+                        {{ username }}
     										<div class="ui input" style= "width : 100%">
                           <form role="form" method="post" action="/database/newComment">
                             <div class="form-group">
@@ -249,7 +253,7 @@
               <div class="item">
                 <!-- END SCROLL HERE -->
                 <h2 class="ui header">
-                    {{user.firstName}}'s Following
+                    {{user.firstName}} is Following
                 </h2>
                 <!-- SCROLL HERE -->
                 <div class="ui vertical segments" id="rightHandScrollable">

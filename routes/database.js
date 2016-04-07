@@ -9,7 +9,7 @@ var bcrypt = require('bcrypt');
 var fs = require('fs');
 var escape = require('escape-html');
 
-//
+//get a user object by username
 router.get('/userById', function(req, res, next) {
     var username = escape(req.query.username);
     collections.User.findOne({username: username}, function(err, data){
@@ -25,6 +25,7 @@ router.get('/userById', function(req, res, next) {
     });
 });
 
+//get a recipeobject by recipe ID
 router.get('/recipeById', function(req, res, next) {
     var recipeId = req.query.recipeId;
     collections.Recipe.findOne({_id: recipeId}, function(err, data){
@@ -40,6 +41,7 @@ router.get('/recipeById', function(req, res, next) {
     });
 });
 
+// get all users (for admin use)
 router.get('/allUsers', function(req, res, next) {
     collections.User.find({}, function(err, data){
         if (err) {
@@ -51,6 +53,7 @@ router.get('/allUsers', function(req, res, next) {
     });
 });
 
+//get a list of recipes which belong to a particular user
 router.get('/allRecipesByUsername', function(req, res, next) {
     var username = escape(req.query.username);
     collections.User.findOne({username: username}, function(err, user){
@@ -77,6 +80,7 @@ router.get('/allRecipesByUsername', function(req, res, next) {
     });
 });
 
+//get top n best rated recipes
 router.get('/recipeOrderByRating', function(req, res, next){
     var number = parseInt(req.query.number);
     if(!number){
@@ -94,6 +98,7 @@ router.get('/recipeOrderByRating', function(req, res, next){
     }
 });
 
+// get a list of recipe objects which contains search string
 router.get('/searchRecipeByTitle', function(req, res, next){
     var title = escape(req.query.title);
     collections.Recipe.find({title: {$regex: title, $options: 'i'}}, function(err, recipes){
@@ -106,6 +111,7 @@ router.get('/searchRecipeByTitle', function(req, res, next){
     });
 });
 
+// get a list of recipe objects that belong to a particular user
 router.get('/recipesByUsername', function(req, res, next){
     var username = req.query.username;
     collections.User.findOne({username: username}, function(err, user){
@@ -129,6 +135,7 @@ router.get('/recipesByUsername', function(req, res, next){
     });
 });
 
+// add a new comment
 router.post('/newComment', function(req, res, next){
     var params = req.body;
     var commenter = escape(params.commenter);
@@ -159,6 +166,8 @@ router.post('/newComment', function(req, res, next){
         });
     });
 });
+
+// add a new rating
 router.post('/newRating', function(req, res, next){
     var params = req.body;
     var rater = escape(params.rater);
@@ -203,6 +212,8 @@ router.post('/newRating', function(req, res, next){
         }
     });
 });
+
+// follow someone
 router.post('/follow', function(req, res, next){
     var params = req.body;
     //var username = escape(params.username);
@@ -256,6 +267,8 @@ router.post('/follow', function(req, res, next){
     });
 });
 
+
+// unfollow someone
 router.post('/unfollow', function(req, res, next){
     var params = req.body;
     //var username = escape(params.username);
@@ -309,8 +322,10 @@ router.post('/unfollow', function(req, res, next){
     });
 });
 
+// create a new recipe
 router.post('/newRecipe', function(req, res, next) {
     var params = req.body;
+    console.log(params);
     var new_recipe = collections.Recipe(params);
     new_recipe.steps = JSON.parse(new_recipe.steps);
     new_recipe.ingredients = JSON.parse(new_recipe.ingredients);
@@ -345,6 +360,8 @@ router.post('/newRecipe', function(req, res, next) {
         });
     });
 });
+
+// create a new user
 router.post('/newUser', function(req, res, next) {
     var params = req.body;
     bcrypt.genSalt(10, function(err, salt){
@@ -374,8 +391,8 @@ router.post('/newUser', function(req, res, next) {
     });
 });
 
+// add profile image
 router.post('/addProfileImage', function(req, res, next){
-
     fs.readFile(req.file.path, function (err, data) {
         console.log("username is:");
         console.log(req.body);
@@ -388,6 +405,7 @@ router.post('/addProfileImage', function(req, res, next){
     });
 });
 
+// delete a recipe
 router.post('/deleteRecipe', function(req, res, next){
     var recipeId = req.body.recipeId;
     collections.Recipe.find({_id: recipeId}, function(err, recipe){
@@ -431,6 +449,7 @@ router.post('/deleteRecipe', function(req, res, next){
     });
 });
 
+// change a password
 router.post('/changePassword', function(req, res, next){
     var password = req.body.password;
     var username = req.body.username;
