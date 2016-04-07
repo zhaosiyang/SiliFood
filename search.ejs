@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+
+<html lang="en-US">
+<head>
+    <title>SiliFood.</title>
+  <link rel="stylesheet" href="../public/stylesheets/search.css" type="text/css">
+
+    <link rel="stylesheet" type="text/css" href="../public/stylesheets/Semantic-UI-CSS-master/dist/semantic.min.css">
+    <!-- <script src="/stylesheets/Semantic-UI-CSS-master/dist/semantic.min.js" type="text/javascript"></script> -->
+
+    <!--
+    <script language="javascript" type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
+    -->
+    <!-- <script language="javascript" type="text/javascript" src="/stylesheets/Semantic-UI-CSS-master/dist/semantic.js"></script> -->
+
+	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+	<script src="../public/javascripts/search.js"></script>
+
+</head>
+
+<body id="main" ng-app="myApp" ng-controller="ResultsController" ng-init="username = '<%= username%>'">
+    <!-- Top Horizontal Main Menu -->
+    <div class="ui fixed inverted main menu" id="top-menu" style="background-color: rgb(50, 24, 126)">
+        <a class="item">
+            <i class="home icon"></i>
+            SiliFood.
+        </a>
+        <a class="item">
+            <i class="add square icon"></i>
+            Create a Recipe
+        </a>
+        <a class="item">
+            <i class="write square icon"></i>
+            Edit a Recipe
+        </a>
+        <a class="item">
+            <i class="share icon"></i>
+            Share a Recipe
+        </a>
+        <a class="item">
+            <i class="sign out icon"></i>
+            Sign Out
+        </a>
+        <div class="ui icon input">
+          <form name="search" role="form">
+            <input type="text" class="form-control" ng-model="query" name="search" required>
+            <span class="input-group-addon">
+                <button class="ui button btn-search" ng-click="submitSearch(query)">
+                    Search
+                </button>
+            </span>
+          </form>
+        </div>
+    </div>
+    <!-- End Main Menu -->
+
+    <!-- Start Grid -->
+    <div class="ui grid" id="display-grid">
+        <div class="ui four wide column">
+            <div class="ui vertical fluid tabular menu">
+                <!-- Left Side Menu (Ads for now) -->
+                <div class="ui segment" id="ad-display" style="position: fixed">
+                    <div class="ui sticky">
+                        <h3 class="ui header">Buy some crap you don't need!</h3>
+                        <img src="" alt="Some Advertisement"></img>
+                    </div>
+                </div>
+                <!-- End Left Side Menu -->
+            </div>
+        </div>
+
+        <!-- Search Results Display -->
+        <div class="ui eight wide column grid" id="information-display">
+            <br/><br/>
+            <!-- Start Top row -->
+            <div class="row">
+                <div class="twenty wide column">
+                    <a class="item">
+                        <h2 class="ui header">Search Results</h2>
+                    </a>
+                </div>
+            </div>
+            <!-- End Top row -->
+            <!-- Start Search Results Column (this should be independently scrollable)-->
+				<div class="row" ng-repeat="rec in recipes">
+					<div class="twenty wide column">
+						<!-- Start Popup Section (Individual Recipe) -->
+						<div class="ui raised text compact piled container segment" style= "width : 100%">
+							<div class="ui horizontal segments">
+								<div class="ui segment" style="width : 35%">
+									 <img ng-src="/recipeImage/{{rec._id}}" height=100px width=100px></img>
+									<br>
+									    <i class="star icon" ng-repeat='star in range(rec.averageRating)'></i>
+								</div>
+								<div class="ui segment" style="width : 65%">
+									<h3 style="color: black">
+										{{ rec.title }}
+									</h3>
+									<p>
+										{{ 'Notes: ' + rec.notes }}
+									</p>
+								</div>
+							</div>
+							<!-- Start Steps Section -->
+							<div class="ui segment" ng-repeat='steps in rec.steps'>
+								<p>Step {{$index + 1}}: {{steps}}</p>
+							</div>
+							<!-- End Steps Section -->
+							<!-- Start Comments Segment -->
+							<div class="ui segment" style= "width : 100%" style="background-color: rgb(50, 24, 126)"  ng-repeat="comment in rec.comments">
+								<!-- Horizontal Segment for each Comment -->
+
+								<!-- Start Comment -->
+								<div class="ui horizontal segments">
+									<!-- Profile Picture and Username in one segment to keep constant sizes -->
+									<div class="ui segment" style="width : 25%">
+                    <a ng-href="/otherProfile/?username={{comment.commenter}}">
+										<img class="ui circular avatar image" ng-src="/profileImage/{{comment.commenter}}"><span>{{ comment.commenter }}</span>
+                  </a>
+									</div>
+									<!-- User Comment Text in another segment to keep constant sizes -->
+									<div class="ui segment" style="width : 75%">
+										<div class="ui input" style= "width : 100%">
+											{{ comment.contents }}
+										</div>
+									</div>
+								</div>
+								<!-- End Comment -->
+								<!-- Start Comment -->
+                <div class="ui horizontal segments">
+                  <h5>Comment and Rate!</h5>
+                  <!-- Profile Picture and Username in one segment to keep constant sizes -->
+                  <div class="ui segment" style="width : 25%">
+                    <img class="ui circular avatar image" ng-src="/profileImage/{{username}}"><span>{{ username }}</span>
+                  </div>
+                  <div class="ui segment" style="width : 75%">
+                    <div class="ui input" style= "width : 100%">
+                      <form role="form" method="post" action="/database/newComment">
+                        <div class="form-group">
+                          <input type="text" class="form-control" id="newComment" name="contents">
+                          <input type="hidden" name="commenter" ng-value="username">
+                          <input type="hidden" name="recipeId" ng-value="rec._id">
+                          <button type="submit" class="btn btn-default">Submit</button>
+                        </div>
+                      </form>
+                      <p>Rate the Recipe!</p>
+                      <label class="radio-inline"><input type="radio" ng-click='radioFunctionality(rec._id,1)' name="rating">1</input></label>
+                      <label class="radio-inline"><input type="radio" ng-click='radioFunctionality(rec._id,2)' name="rating">2</input></label>
+                      <label class="radio-inline"><input type="radio" ng-click='radioFunctionality(rec._id,3)' name="rating">3</input></label>
+                      <label class="radio-inline"><input type="radio" ng-click='radioFunctionality(rec._id,4)' name="rating">4</input></label>
+                      <label class="radio-inline"><input type="radio" ng-click='radioFunctionality(rec._id,5)' name="rating">5</input></label>
+                    </div>
+                  </div>
+                </div>
+								<!-- End Comment -->
+							</div>
+							<!-- End Comments Segment -->
+						</div>
+						<!-- End Popup Section (Individual Recipe) -->
+					</div>
+				</div>
+        </div>
+        <!-- End Search Results Display -->
+        <div class="ui four wide column" style="position: fixed">
+            <br/><br/>
+            <div class="item">
+                <h2 class="ui header">
+                    See What Recipies are Trending Now!
+                </h2>
+
+            </div>
+            <div class="row" ng-repeat="trend in trending">
+              <a ng-href="/otherProfile/?username={{trend.owner}}">
+                <img ng-src="/profileImage/{{trend.owner}}" height=100px width=100px></img>
+              </a>
+              <a ng-href="/otherProfile/?username={{trend.owner}}">
+              {{trend.owner}}
+            </a>
+              <br/>
+              <h5>{{trend.title}}</h5>
+            </div>
+        </div>
+    </div>
+
+    <!-- End Grid -->
+</body>
+</html>
