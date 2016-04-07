@@ -257,7 +257,7 @@ router.post('/follow', function(req, res, next){
                                 res.status(500).send(err);
                                 return;
                             }
-                            res.status(200).send("ok");
+                            res.redirect('/');
                         });
                     });
 
@@ -273,6 +273,7 @@ router.post('/unfollow', function(req, res, next){
     var params = req.body;
     //var username = escape(params.username);
     var objId = escape(params.objId);
+    var authCookie = req.cookies.authCookie;
 
     collections.Cookie.findOne({cookie: authCookie}, function(err, c) {
         if (err) {
@@ -311,7 +312,7 @@ router.post('/unfollow', function(req, res, next){
                                 res.status(500).send(err);
                                 return;
                             }
-                            res.status(200).send("ok");
+                            res.redirect('/');
                         });
                     });
                 });
